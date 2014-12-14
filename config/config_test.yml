@@ -1,0 +1,5 @@
+user: ~
+password: ~
+memory: true
+dbname: phpunit
+driver: pdo_sqlite

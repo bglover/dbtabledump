@@ -1,0 +1,15 @@
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.4/phpunit.xsd"
+    backupGlobals="false"
+    bootstrap="vendor/autoload.php"
+    colors="true">
+    <php>
+        <const name="PHPUNIT" value="true"/>
+    </php>
+    <testsuites>
+        <testsuite name="DbTableDump">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

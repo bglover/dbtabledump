@@ -1,0 +1,27 @@
+{
+    "name": "access9/dbtabledump",
+    "description": "The database table dumper",
+    "keywords": ["yaml","dump","export","cli"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Brian Glover",
+            "email": "brian@access9.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "symfony/console": "~2.6",
+        "symfony/config": "~2.6",
+        "symfony/yaml": "~2.6",
+        "doctrine/dbal": "~2.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.4"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.5.x-dev"
+        }
+    }
+}

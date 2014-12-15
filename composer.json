@@ -23,5 +23,10 @@
         "branch-alias": {
             "dev-master": "0.5.x-dev"
         }
+    },
+    "autoload": {
+        "psr-4": {
+            "Access9\\": "src/"
+        }
     }
 }

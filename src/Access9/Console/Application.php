@@ -12,7 +12,7 @@ use Symfony\Component\Console\Application as sfApplication;
 class Application extends sfApplication
 {
     const APP_NAME   = 'DbTableDump';
-    const APP_VERION = '0.5.1';
+    const APP_VERION = '0.5.2';
 
     /**
      * @var \Doctrine\DBAL\Connection

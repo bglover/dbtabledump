@@ -27,13 +27,14 @@ YAML is the only supported format right now. Support for additional formats
 ``` bash
 php dump.php help dump:yaml
 Usage:
- dump:yaml [-l|--limit[="..."]] [-u|--user[="..."]] [-p|--password[="..."]] [-db|--dbname[="..."]] tables1 ... [tablesN]
+ dump:yaml [-l|--limit[="..."]] [-w|--where[="..."]] [-u|--user[="..."]] [-p|--password[="..."]] [-db|--dbname[="..."]] tables1 ... [tablesN]
 
 Arguments:
  tables                Space delimeted list of tables to dump.
 
 Options:
  --limit (-l)          Number of rows to limit the output to. This option applies to all tables dumped.
+ --where (-w)          Add a where clause to the sql. Clause must be in quotes: -w "name = 'larry'".
  --user (-u)           Optional username. Overrides the user setting in config.yml
  --password (-p)       Optional password. Overrides the password setting in config.yml
  --dbname (-db)        Optional database name. Overrides the dbname setting in config.yml

@@ -38,6 +38,12 @@ class Command extends sfCommand
                     'Number of rows to limit the output to. This option applies to all tables dumped.'
                 ),
                 new InputOption(
+                    'where',
+                    'w',
+                    InputOption::VALUE_OPTIONAL,
+                    'Add a where clause to the sql. Clause must be in quotes: -w "name = \'larry\'".'
+                ),
+                new InputOption(
                     'user',
                     'u',
                     InputOption::VALUE_OPTIONAL,
@@ -69,7 +75,8 @@ class Command extends sfCommand
     {
         // Begin the base SQL.
         $sql = 'SELECT * FROM %s'
-             . $this->setLimit($input->getOption('limit'));
+            . $this->setLimit($input->getOption('limit'))
+            . $this->setWhere($input->getOption('where'));
 
         // Array to hold the result set.
         $results = [];
@@ -129,6 +136,21 @@ class Command extends sfCommand
         $limit = (int) $limit;
         if ($limit) {
             return ' LIMIT ' . $limit;
+        }
+
+        return '';
+    }
+
+    /**
+     * Returns a where clause to be appended to the SQL.
+     *
+     * @param string $where
+     * @return string
+     */
+    private function setWhere($where)
+    {
+        if ($where) {
+            return ' WHERE ' . $where;
         }
 
         return '';

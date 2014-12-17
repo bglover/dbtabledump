@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputOption;
  *
  * @package Access9\Console
  */
-class Command extends sfCommand
+class Dump extends sfCommand
 {
     /**
      * @var \Doctrine\DBAL\Connection
@@ -29,36 +29,36 @@ class Command extends sfCommand
                 new InputArgument(
                     'tables',
                     InputArgument::IS_ARRAY | InputArgument::REQUIRED,
-                    'Space delimeted list of tables to dump.'
+                    'Space delimited list of tables to dump.'
                 ),
                 new InputOption(
                     'limit',
                     'l',
-                    InputOption::VALUE_OPTIONAL,
+                    InputOption::VALUE_REQUIRED,
                     'Number of rows to limit the output to. This option applies to all tables dumped.'
                 ),
                 new InputOption(
                     'where',
                     'w',
-                    InputOption::VALUE_OPTIONAL,
+                    InputOption::VALUE_REQUIRED,
                     'Add a where clause to the sql. Clause must be in quotes: -w "name = \'larry\'".'
                 ),
                 new InputOption(
                     'user',
                     'u',
-                    InputOption::VALUE_OPTIONAL,
+                    InputOption::VALUE_REQUIRED,
                     'Optional username. Overrides the user setting in config.yml'
                 ),
                 new InputOption(
                     'password',
                     'p',
-                    InputOption::VALUE_OPTIONAL,
+                    InputOption::VALUE_REQUIRED,
                     'Optional password. Overrides the password setting in config.yml'
                 ),
                 new InputOption(
                     'dbname',
                     'db',
-                    InputOption::VALUE_OPTIONAL,
+                    InputOption::VALUE_REQUIRED,
                     'Optional database name. Overrides the dbname setting in config.yml'
                 )
             ])

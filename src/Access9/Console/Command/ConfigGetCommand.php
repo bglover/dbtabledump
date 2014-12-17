@@ -3,22 +3,21 @@ namespace Access9\Console\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class DumpTableCommand
+ * Class ConfigCommand
  *
  * @package Access9\Console\Command
  */
-class DumpYamlCommand extends Dump
+class ConfigGetCommand extends Config
 {
     /**
-     * Configures the current command.
+     * Common configuration arguments.
      */
     protected function configure()
     {
-        $this->setName('dump:yaml')
-            ->setDescription('Dump one or more database tables to yaml format.');
+        $this->setName('config:get')
+            ->setDescription('Get a configuration value.');
         parent::configure();
     }
 
@@ -27,7 +26,6 @@ class DumpYamlCommand extends Dump
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $results = $this->toArray($input);
-        $output->writeln(Yaml::dump($results, 4, 2));
+
     }
 }

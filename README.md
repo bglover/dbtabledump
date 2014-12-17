@@ -22,15 +22,44 @@ YAML is the only supported format right now. Support for additional formats
 (JSON, XML) is in the works
 
 
-## Usage
+# Usage
 
+``` bash
+php dump.php
+DbTableDump version 0.6.0
+
+Usage:
+ [options] command [arguments]
+
+Options:
+ --help (-h)           Display this help message.
+ --quiet (-q)          Do not output any message.
+ --verbose (-v|vv|vvv) Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
+ --version (-V)        Display this application version.
+ --ansi                Force ANSI output.
+ --no-ansi             Disable ANSI output.
+ --no-interaction (-n) Do not ask any interactive question.
+
+Available commands:
+ help         Displays help for a command
+ list         Lists commands
+config
+ config:get   Get a configuration value.
+ config:set   Set a configuration value.
+dump
+ dump:yaml    Dump one or more database tables to yaml format.
+```
+
+The `--quiet`, `--verbose` and `--no-interaction` options have no effect.
+
+## Table Dumping
 ``` bash
 php dump.php help dump:yaml
 Usage:
- dump:yaml [-l|--limit[="..."]] [-w|--where[="..."]] [-u|--user[="..."]] [-p|--password[="..."]] [-db|--dbname[="..."]] tables1 ... [tablesN]
+ dump:yaml [-l|--limit="..."] [-w|--where="..."] [-u|--user="..."] [-p|--password="..."] [-db|--dbname="..."] tables1 ... [tablesN]
 
 Arguments:
- tables                Space delimeted list of tables to dump.
+ tables                Space delimited list of tables to dump.
 
 Options:
  --limit (-l)          Number of rows to limit the output to. This option applies to all tables dumped.
@@ -46,9 +75,6 @@ Options:
  --no-ansi             Disable ANSI output.
  --no-interaction (-n) Do not ask any interactive question.
 ```
-
-The `--quiet`, `--verbose` and `--no-interaction` options have no effect.
-
 
 ### Example - Dumping a single table to yaml
 
@@ -133,7 +159,24 @@ language:
 
 ## Configuration
 
-Copy config/config.yml.dist to config/config.yml and edit appropriately.
+``` bash
+php dump.php help config:set
+Usage:
+ config:set [-u|--user="..."] [-p|--password="..."] [-db|--dbname="..."] [-d|--driver="..."]
+
+Options:
+ --user (-u)           Username used to connect to the database.
+ --password (-p)       Password used to connect to the database.
+ --dbname (-db)        Name of the database used for dump operations.
+ --driver (-d)         Driver used to connect to the database. Valid options are "pdo_mysql", "drizzle_pdo_mysql", "mysqli", "pdo_sqlite", "pdo_pgsql", "pdo_oci", "pdo_sqlsrv", "sqlsrv", "oci8" and "sqlanywhere".
+ --help (-h)           Display this help message.
+ --quiet (-q)          Do not output any message.
+ --verbose (-v|vv|vvv) Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
+ --version (-V)        Display this application version.
+ --ansi                Force ANSI output.
+ --no-ansi             Disable ANSI output.
+ --no-interaction (-n) Do not ask any interactive question.
+```
 
 
 ### Supported Database Drivers

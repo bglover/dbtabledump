@@ -1,17 +1,17 @@
 <?php
 namespace Access9\Tests\Console\Command;
 
-use Access9\Console\Command\Command;
+use Access9\Console\Command\Dump;
 
 /**
  * Class CommandTest
  *
  * @package Access9\Tests\Console\Command
  */
-class CommandTest extends \PHPUnit_Framework_TestCase
+class DumpTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Command
+     * @var Dump
      */
     private $command;
 
@@ -23,7 +23,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $arguments);
 
         $arg = $arguments['tables'];
-        $this->assertSame('Space delimeted list of tables to dump.', $arg->getDescription());
+        $this->assertSame('Space delimited list of tables to dump.', $arg->getDescription());
         $this->assertTrue($arg->isArray());
         $this->assertTrue($arg->isRequired());
     }
@@ -34,14 +34,14 @@ class CommandTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($def->hasOption('limit'));
 
         $limit = $def->getOption('limit');
-        $this->assertFalse($limit->isValueRequired());
+        $this->assertTrue($limit->isValueRequired());
         $this->assertSame('l', $limit->getShortcut());
         $this->assertSame(
             'Number of rows to limit the output to. This option applies to all tables dumped.',
             $limit->getDescription()
         );
         $this->assertFalse($limit->isArray());
-        $this->assertTrue($limit->isValueOptional());
+        $this->assertFalse($limit->isValueOptional());
     }
 
     public function testCommandHasUserOption()
@@ -50,14 +50,14 @@ class CommandTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($def->hasOption('user'));
 
         $user = $def->getOption('user');
-        $this->assertFalse($user->isValueRequired());
+        $this->assertTrue($user->isValueRequired());
         $this->assertSame('u', $user->getShortcut());
         $this->assertSame(
             'Optional username. Overrides the user setting in config.yml',
             $user->getDescription()
         );
         $this->assertFalse($user->isArray());
-        $this->assertTrue($user->isValueOptional());
+        $this->assertFalse($user->isValueOptional());
     }
 
     public function testCommandHasPasswordOption()
@@ -66,14 +66,14 @@ class CommandTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($def->hasOption('password'));
 
         $password = $def->getOption('password');
-        $this->assertFalse($password->isValueRequired());
+        $this->assertTrue($password->isValueRequired());
         $this->assertSame('p', $password->getShortcut());
         $this->assertSame(
             'Optional password. Overrides the password setting in config.yml',
             $password->getDescription()
         );
         $this->assertFalse($password->isArray());
-        $this->assertTrue($password->isValueOptional());
+        $this->assertFalse($password->isValueOptional());
     }
 
     public function testCommandHasDbnameOption()
@@ -82,14 +82,14 @@ class CommandTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($def->hasOption('dbname'));
 
         $dbname = $def->getOption('dbname');
-        $this->assertFalse($dbname->isValueRequired());
+        $this->assertTrue($dbname->isValueRequired());
         $this->assertSame('db', $dbname->getShortcut());
         $this->assertSame(
             'Optional database name. Overrides the dbname setting in config.yml',
             $dbname->getDescription()
         );
         $this->assertFalse($dbname->isArray());
-        $this->assertTrue($dbname->isValueOptional());
+        $this->assertFalse($dbname->isValueOptional());
     }
 
     public function testToArray()
@@ -106,6 +106,11 @@ class CommandTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(' LIMIT 1', $method->invokeArgs($this->command, ['1']));
     }
 
+    public function testTableExists()
+    {
+        $this->markTestIncomplete('todo');
+    }
+
     public function testGetDb()
     {
         $this->markTestIncomplete('todo');
@@ -113,7 +118,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->command = new Command('dump');
+        $this->command = new Dump('dump');
         $ref           = new \ReflectionClass($this->command);
         $method        = $ref->getMethod('configure');
         $method->setAccessible(true);

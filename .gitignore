@@ -2,3 +2,4 @@
 vendor/
 config/config.yml
 composer.phar
+coverage/

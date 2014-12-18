@@ -56,8 +56,14 @@ class Dump extends sfCommand
                     'Optional password. Overrides the password setting in config.yml'
                 ),
                 new InputOption(
+                    'host',
+                    'o',
+                    InputOption::VALUE_REQUIRED,
+                    'Optional host. Overrides the host setting in config.yml'
+                ),
+                new InputOption(
                     'dbname',
-                    'db',
+                    'n',
                     InputOption::VALUE_REQUIRED,
                     'Optional database name. Overrides the dbname setting in config.yml'
                 )
@@ -84,6 +90,7 @@ class Dump extends sfCommand
         $db = $this->getDb(
             $input->getOption('user'),
             $input->getOption('password'),
+            $input->getOption('host'),
             $input->getOption('dbname')
         );
         foreach ($input->getArgument('tables') as $table) {
@@ -161,16 +168,17 @@ class Dump extends sfCommand
      *
      * @param string|null $user
      * @param string|null $password
+     * @param string|null $host
      * @param string|null $dbname
      * @return \Doctrine\DBAL\Connection
      */
-    private function getDb($user = null, $password = null, $dbname = null)
+    private function getDb($user = null, $password = null, $host = null, $dbname = null)
     {
         if ($this->db) {
             return $this->db;
         }
 
-        $this->db = $this->getApplication()->getConnection($user, $password, $dbname);
+        $this->db = $this->getApplication()->getConnection($user, $password, $host, $dbname);
 
         return $this->db;
     }

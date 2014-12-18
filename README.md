@@ -5,7 +5,16 @@ DbTableDump is a PHP CLI tool to dump a database table's content to various form
 
 ## Installation
 
-To install this tool, clone this repo
+### Via Composer
+
+The easiest way to install this tool is via composer:
+``` bash
+composer require access9/dbtabledump
+```
+
+### Cloning
+
+Of course you can always clone the repo
 ``` bash
 git clone https://github.com/bglover/dbtabledump.git
 ```

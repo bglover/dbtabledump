@@ -27,7 +27,7 @@
     "bin": ["dump"],
     "autoload": {
         "psr-4": {
-            "Access9\\": "src/"
+            "Access9\\": "src/Access9/"
         }
     }
 }

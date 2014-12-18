@@ -30,9 +30,9 @@ class Config
         // Use the appropriate file for testing.
         $this->configFile = $path . DIRECTORY_SEPARATOR . (defined('PHPUNIT') ? 'config_test.yml' : 'config.yml');
         if (!file_exists($this->configFile)) {
-            if (!is_writable($this->configFile)) {
+            if (!is_writable($path)) {
                 throw new FileNotWritableException(
-                    "The config file at {$this->configFile} is not writable. Check the file permissions and try again."
+                    "The directory '{$path}' is not writable. Check the directory permissions and try again."
                 );
             }
             copy($this->configFile . '.dist', $this->configFile);

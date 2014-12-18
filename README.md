@@ -25,61 +25,55 @@ YAML is the only supported format right now. Support for additional formats
 # Usage
 
 ``` bash
-php dump.php
+php dump
 DbTableDump version 0.6.0
 
 Usage:
  [options] command [arguments]
 
 Options:
- --help (-h)           Display this help message.
- --quiet (-q)          Do not output any message.
- --verbose (-v|vv|vvv) Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
- --version (-V)        Display this application version.
- --ansi                Force ANSI output.
- --no-ansi             Disable ANSI output.
- --no-interaction (-n) Do not ask any interactive question.
+ --help (-h)    Display this help message.
+ --version (-V) Display this application version.
+ --ansi         Force ANSI output.
+ --no-ansi      Disable ANSI output.
 
 Available commands:
  help         Displays help for a command
  list         Lists commands
 config
- config:get   Get a configuration value.
+ config:get   Get a configuration value. If no options are given, the entire config is printed.
  config:set   Set a configuration value.
-dump
- dump:yaml    Dump one or more database tables to yaml format.
+to
+ to:yaml      Dump one or more database tables to yaml format.
 ```
 
 The `--quiet`, `--verbose` and `--no-interaction` options have no effect.
 
 ## Table Dumping
 ``` bash
-php dump.php help dump:yaml
+php dump help to:yaml
 Usage:
- dump:yaml [-l|--limit="..."] [-w|--where="..."] [-u|--user="..."] [-p|--password="..."] [-db|--dbname="..."] tables1 ... [tablesN]
+ to:yaml [-l|--limit="..."] [-w|--where="..."] [-u|--user="..."] [-p|--password="..."] [-db|--dbname="..."] tables1 ... [tablesN]
 
 Arguments:
- tables                Space delimited list of tables to dump.
+ tables          Space delimited list of tables to dump.
 
 Options:
- --limit (-l)          Number of rows to limit the output to. This option applies to all tables dumped.
- --where (-w)          Add a where clause to the sql. Clause must be in quotes: -w "name = 'larry'".
- --user (-u)           Optional username. Overrides the user setting in config.yml
- --password (-p)       Optional password. Overrides the password setting in config.yml
- --dbname (-db)        Optional database name. Overrides the dbname setting in config.yml
- --help (-h)           Display this help message.
- --quiet (-q)          Do not output any message.
- --verbose (-v|vv|vvv) Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
- --version (-V)        Display this application version.
- --ansi                Force ANSI output.
- --no-ansi             Disable ANSI output.
- --no-interaction (-n) Do not ask any interactive question.
+ --limit (-l)    Number of rows to limit the output to. This option applies to all tables dumped.
+ --where (-w)    Add a where clause to the sql. Clause must be in quotes: -w "name = 'larry'".
+ --user (-u)     Optional username. Overrides the user setting in config.yml
+ --password (-p) Optional password. Overrides the password setting in config.yml
+ --dbname (-db)  Optional database name. Overrides the dbname setting in config.yml
+ --help (-h)     Display this help message.
+ --version (-V)  Display this application version.
+ --ansi          Force ANSI output.
+ --no-ansi       Disable ANSI output.
 ```
 
 ### Example - Dumping a single table to yaml
 
 ``` bash
-php dump.php dump:yaml mytable
+php dump to:yaml mytable
 mytable:
   -
     id: '1'
@@ -94,7 +88,7 @@ mytable:
 
 
 ``` bash
-php dump.php dump:yaml mytable othertable
+php dump to:yaml mytable othertable
 mytable:
   -
     mytable_id: '1'
@@ -117,7 +111,7 @@ othertable
 ### Example - Dumping using the --dbname argument
 
 ``` bash
-php dump.php dump:yaml store language --dbname sakila
+php dump to:yaml store language --dbname sakila
 store:
   -
     store_id: '1'
@@ -159,25 +153,49 @@ language:
 
 ## Configuration
 
+### Use the config:set command to set the configuration.
+
 ``` bash
-php dump.php help config:set
+php dump help config:set
 Usage:
- config:set [-u|--user="..."] [-p|--password="..."] [-db|--dbname="..."] [-d|--driver="..."]
+ config:set [-u|--user="..."] [-p|--password="..."] [-o|--host="..."] [-n|--dbname="..."] [-d|--driver="..."]
 
 Options:
- --user (-u)           Username used to connect to the database.
- --password (-p)       Password used to connect to the database.
- --dbname (-db)        Name of the database used for dump operations.
- --driver (-d)         Driver used to connect to the database. Valid options are "pdo_mysql", "drizzle_pdo_mysql", "mysqli", "pdo_sqlite", "pdo_pgsql", "pdo_oci", "pdo_sqlsrv", "sqlsrv", "oci8" and "sqlanywhere".
- --help (-h)           Display this help message.
- --quiet (-q)          Do not output any message.
- --verbose (-v|vv|vvv) Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
- --version (-V)        Display this application version.
- --ansi                Force ANSI output.
- --no-ansi             Disable ANSI output.
- --no-interaction (-n) Do not ask any interactive question.
+ --user (-u)     Username used to connect to the database.
+ --password (-p) Password used to connect to the database.
+ --host (-o)     Host the database is on. Either an IP address or a hostname are valid.
+ --dbname (-n)   Name of the database used for dump operations.
+ --driver (-d)   Driver used to connect to the database. Valid options are
+                 pdo_mysql, drizzle_pdo_mysql, mysqli, pdo_sqlite, pdo_pgsql,
+                 pdo_oci, pdo_sqlsrv, sqlsrv, oci8 and sqlanywhere.
+ --help (-h)     Display this help message.
+ --version (-V)  Display this application version.
+ --ansi          Force ANSI output.
+ --no-ansi       Disable ANSI output.
 ```
 
+
+### Use the config:get command to get the configuration values.
+
+``` bash
+php dump help config:get
+Usage:
+ config:get [-u|--user] [-p|--password] [-o|--host] [-n|--dbname] [-d|--driver]
+
+Options:
+ --user (-u)
+ --password (-p)
+ --host (-o)
+ --dbname (-n)
+ --driver (-d)
+ --help (-h)     Display this help message.
+ --version (-V)  Display this application version.
+ --ansi          Force ANSI output.
+ --no-ansi       Disable ANSI output.
+
+Help:
+ If no options are given, the entire config is printed.
+```
 
 ### Supported Database Drivers
 

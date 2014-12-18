@@ -4,6 +4,7 @@ namespace Access9\Console;
 use Access9\Config;
 use Doctrine\DBAL\DriverManager;
 use Symfony\Component\Console\Application as sfApplication;
+use Symfony\Component\Console\Input\InputDefinition;
 
 /**
  * Class Application
@@ -31,17 +32,21 @@ class Application extends sfApplication
     public function __construct($name = 'UNKNOWN', $version = 'UNKNOWN')
     {
         parent::__construct(self::APP_NAME, self::APP_VERION);
+        $this->overrideDefaultDefinition();
         $this->config = new Config();
     }
 
     /**
+     * Returns the instance of \Doctrine\DBAL\Connection.
+     *
      * @param string|null $user
      * @param string|null $password
+     * @param string|null $host
      * @param string|null $dbname
      * @return \Doctrine\DBAL\Connection
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function getConnection($user = null, $password = null, $dbname = null)
+    public function getConnection($user = null, $password = null, $host = null, $dbname = null)
     {
         // Return the connection if it's already been created.
         if ($this->db) {
@@ -49,9 +54,35 @@ class Application extends sfApplication
         }
 
         $this->db = DriverManager::getConnection(
-            $this->config->getConfig($user, $password, $dbname)
+            $this->config->getConfig($user, $password, $host, $dbname)
         );
 
         return $this->db;
+    }
+
+    /**
+     * Returns the instance of \Access9\Config.
+     *
+     * @return Config
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * Remove a few of the default options that will never be implemented.
+     */
+    private function overrideDefaultDefinition()
+    {
+        $defaultDefinition = new InputDefinition();
+        $removeMe          = ['quiet', 'verbose', 'no-interaction'];
+        foreach ($this->getDefaultInputDefinition()->getOptions() as $inputOption) {
+            if (!in_array($inputOption->getName(), $removeMe)) {
+                $defaultDefinition->addOption($inputOption);
+            }
+        }
+        $defaultDefinition->addArguments($this->getDefaultInputDefinition()->getArguments());
+        $this->setDefinition($defaultDefinition);
     }
 }

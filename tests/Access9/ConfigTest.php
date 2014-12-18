@@ -34,7 +34,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             'password' => null,
             'memory'   => true,
             'dbname'   => 'phpunit',
-            'driver'   => 'pdo_sqlite'
+            'driver'   => 'pdo_sqlite',
+            'host'     => null
         ];
         $this->assertSame($expected, $prop->getValue($this->config));
     }
@@ -65,7 +66,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             'password' => null,
             'memory'   => true,
             'dbname'   => 'phpunit',
-            'driver'   => 'pdo_sqlite'
+            'driver'   => 'pdo_sqlite',
+            'host'     => null
         ];
         $this->assertSame($expected, $this->config->getConfig());
     }
@@ -80,9 +82,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             'password' => 'password-param',
             'memory'   => true,
             'dbname'   => 'dbname-param',
-            'driver'   => 'pdo_sqlite'
+            'driver'   => 'pdo_sqlite',
+            'host'     => 'host-param'
         ];
-        $this->assertSame($expected, $this->config->getConfig('user-param', 'password-param', 'dbname-param'));
+        $this->assertSame(
+            $expected,
+            $this->config->getConfig('user-param', 'password-param', 'host-param', 'dbname-param')
+        );
     }
 
     public function test__set()
@@ -149,7 +155,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             . "password: 'ARE BAD'" . $eol
             . 'memory: true' . $eol
             . 'dbname: phpunit' . $eol
-            . 'driver: pdo_sqlite' . $eol;
+            . 'driver: pdo_sqlite' . $eol
+            . 'host: null' . $eol;
 
         $this->assertStringEqualsFile($file, $expected);
     }

@@ -1,7 +1,6 @@
 <?php
 namespace Access9;
 
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -26,13 +25,18 @@ class Config
      */
     public function __construct()
     {
-        $locator = new FileLocator([
-            __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config'
-        ]);
+        $path = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config';
 
-        // Use the appropriate file for testing or normal runs.
-        $filename         = defined('PHPUNIT') ? 'config_test.yml' : 'config.yml';
-        $this->configFile = $locator->locate($filename, null, true);
+        // Use the appropriate file for testing.
+        $this->configFile = $path . DIRECTORY_SEPARATOR . (defined('PHPUNIT') ? 'config_test.yml' : 'config.yml');
+        if (!file_exists($this->configFile)) {
+            if (!is_writable($this->configFile)) {
+                throw new FileNotWritableException(
+                    "The config file at {$this->configFile} is not writable. Check the file permissions and try again."
+                );
+            }
+            copy($this->configFile . '.dist', $this->configFile);
+        }
         $this->config     = Yaml::parse($this->configFile);
     }
 
@@ -82,10 +86,11 @@ class Config
      *
      * @param string|null $user
      * @param string|null $password
+     * @param string|null $host
      * @param string|null $dbname
      * @return array
      */
-    public function getConfig($user = null, $password = null, $dbname = null)
+    public function getConfig($user = null, $password = null, $host = null, $dbname = null)
     {
         if ($user) {
             $this->config['user'] = $user;
@@ -93,6 +98,10 @@ class Config
 
         if ($password) {
             $this->config['password'] = $password;
+        }
+
+        if ($host) {
+            $this->config['host'] = $host;
         }
 
         if ($dbname) {
@@ -103,10 +112,20 @@ class Config
     }
 
     /**
-     * Save the configuration value.
+     * Save the configuration.
      */
-    private function save()
+    public function save()
     {
+        if (!is_writable($this->configFile)) {
+            throw new FileNotWritableException(
+                "The config file at {$this->configFile} is not writable. Check the file permissions and try again."
+            );
+        }
         file_put_contents($this->configFile, Yaml::dump($this->config));
+    }
+
+    public function __toString()
+    {
+        return Yaml::dump($this->config);
     }
 }

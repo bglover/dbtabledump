@@ -17,7 +17,7 @@ class DumpYamlCommand extends Dump
      */
     protected function configure()
     {
-        $this->setName('dump:yaml')
+        $this->setName('to:yaml')
             ->setDescription('Dump one or more database tables to yaml format.');
         parent::configure();
     }

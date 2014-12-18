@@ -12,7 +12,6 @@
     "require": {
         "php": ">=5.4",
         "symfony/console": "~2.6",
-        "symfony/config": "~2.6",
         "symfony/yaml": "~2.6",
         "doctrine/dbal": "~2.4"
     },
@@ -22,9 +21,10 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.5.x-dev"
+            "dev-master": "0.6.x-dev"
         }
     },
+    "bin": ["dump"],
     "autoload": {
         "psr-4": {
             "Access9\\": "src/"

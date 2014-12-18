@@ -23,7 +23,7 @@ class DumpYamlCommandTest extends \PHPUnit_Framework_TestCase
         $application = $this->getApplication();
         $application->add(new DumpYamlCommand());
 
-        $command = $application->find('dump:yaml');
+        $command = $application->find('to:yaml');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName(),

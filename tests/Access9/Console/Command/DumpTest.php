@@ -83,9 +83,25 @@ class DumpTest extends \PHPUnit_Framework_TestCase
 
         $dbname = $def->getOption('dbname');
         $this->assertTrue($dbname->isValueRequired());
-        $this->assertSame('db', $dbname->getShortcut());
+        $this->assertSame('n', $dbname->getShortcut());
         $this->assertSame(
             'Optional database name. Overrides the dbname setting in config.yml',
+            $dbname->getDescription()
+        );
+        $this->assertFalse($dbname->isArray());
+        $this->assertFalse($dbname->isValueOptional());
+    }
+
+    public function testCommandHaHostOption()
+    {
+        $def = $this->command->getDefinition();
+        $this->assertTrue($def->hasOption('host'));
+
+        $dbname = $def->getOption('host');
+        $this->assertTrue($dbname->isValueRequired());
+        $this->assertSame('o', $dbname->getShortcut());
+        $this->assertSame(
+            'Optional host. Overrides the host setting in config.yml',
             $dbname->getDescription()
         );
         $this->assertFalse($dbname->isArray());
@@ -104,6 +120,15 @@ class DumpTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEmpty($method->invokeArgs($this->command, ['']));
         $this->assertSame(' LIMIT 1', $method->invokeArgs($this->command, ['1']));
+    }
+
+    public function testSetWhere()
+    {
+        $method = new \ReflectionMethod($this->command, 'setWhere');
+        $method->setAccessible(true);
+
+        $this->assertEmpty($method->invokeArgs($this->command, ['']));
+        $this->assertSame(' WHERE id = \'1\'', $method->invokeArgs($this->command, ['id = \'1\'']));
     }
 
     public function testTableExists()

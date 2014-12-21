@@ -1,19 +1,12 @@
 #!/usr/bin/env php
 <?php
-// installed via composer?
+// Installed via composer?
 if (file_exists($a = __DIR__ . '/../../autoload.php')) {
     require_once $a;
 } else {
     require_once __DIR__ . '/vendor/autoload.php';
 }
 
-use Access9\Console\Application;
-use Access9\Console\Command\ConfigGetCommand;
-use Access9\Console\Command\ConfigSetCommand;
-use Access9\Console\Command\DumpYamlCommand;
+use Access9\DbTableDump;
 
-$application = new Application();
-$application->add(new ConfigSetCommand());
-$application->add(new ConfigGetCommand());
-$application->add(new DumpYamlCommand());
-$application->run();
+DbTableDump::run();

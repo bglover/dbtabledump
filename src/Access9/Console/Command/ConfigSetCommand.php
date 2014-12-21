@@ -2,6 +2,7 @@
 namespace Access9\Console\Command;
 
 use Symfony\Component\Console\Command\Command as sfCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -81,8 +82,11 @@ class ConfigSetCommand extends sfCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->validateOptions($input);
+
         /** @var \Access9\Config $config */
         $config = $this->getApplication()->getConfig();
+
         if (null !== ($user = $input->getOption('user'))) {
             $config->user = $user;
         }
@@ -110,5 +114,23 @@ class ConfigSetCommand extends sfCommand
         }
 
         $config->save();
+    }
+
+    /**
+     * Validate that at least one option is given.
+     *
+     * @param InputInterface $input
+     * @return bool
+     * @throws \InvalidArgumentException
+     */
+    private function validateOptions(InputInterface $input)
+    {
+        foreach ($input->getOptions() as $o) {
+            if (!empty($o)) {
+                return;
+            }
+        }
+
+        throw new \InvalidArgumentException('An option is required.');
     }
 }

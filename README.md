@@ -27,15 +27,14 @@ composer update
 
 ## Supported Formats
 
-YAML is the only supported format right now. Support for additional formats
-(JSON, XML) is in the works
+YAML and JSON are the only supported formats right now. Support for additional formats is planned.
 
 
 # Usage
 
 ``` bash
 php dump
-DbTableDump version 0.6.0
+DbTableDump version 0.7.0
 
 Usage:
  [options] command [arguments]
@@ -53,16 +52,16 @@ config
  config:get   Get a configuration value. If no options are given, the entire config is printed.
  config:set   Set a configuration value.
 to
+ to:json      Dump one or more database tables to json format.
  to:yaml      Dump one or more database tables to yaml format.
 ```
 
-The `--quiet`, `--verbose` and `--no-interaction` options have no effect.
 
-## Table Dumping
+## Table Dumping to YAML
 ``` bash
 php dump help to:yaml
 Usage:
- to:yaml [-l|--limit="..."] [-w|--where="..."] [-u|--user="..."] [-p|--password="..."] [-db|--dbname="..."] tables1 ... [tablesN]
+ to:yaml [-l|--limit="..."] [-w|--where="..."] [-u|--user="..."] [-p|--password="..."] [-o|--host="..."] [-n|--dbname="..."] tables1 ... [tablesN]
 
 Arguments:
  tables          Space delimited list of tables to dump.
@@ -72,97 +71,45 @@ Options:
  --where (-w)    Add a where clause to the sql. Clause must be in quotes: -w "name = 'larry'".
  --user (-u)     Optional username. Overrides the user setting in config.yml
  --password (-p) Optional password. Overrides the password setting in config.yml
- --dbname (-db)  Optional database name. Overrides the dbname setting in config.yml
+ --host (-o)     Optional host. Overrides the host setting in config.yml
+ --dbname (-n)   Optional database name. Overrides the dbname setting in config.yml
  --help (-h)     Display this help message.
  --version (-V)  Display this application version.
  --ansi          Force ANSI output.
  --no-ansi       Disable ANSI output.
 ```
 
-### Example - Dumping a single table to yaml
 
+## Table Dumping to JSON
 ``` bash
-php dump to:yaml mytable
-mytable:
-  -
-    id: '1'
-    column: column for row 1
-  -
-    id: '2'
-    column: column for row 2
-```
+Usage:
+ to:json [-l|--limit="..."] [-w|--where="..."] [-u|--user="..."] [-p|--password="..."] [-o|--host="..."] [-n|--dbname="..."] [-b|--bitmask[="..."]] tables1 ... [tablesN]
 
+Arguments:
+ tables          Space delimited list of tables to dump.
 
-### Example - Dumping a multiple tables to yaml
+Options:
+ --limit (-l)    Number of rows to limit the output to. This option applies to all tables dumped.
+ --where (-w)    Add a where clause to the sql. Clause must be in quotes: -w "name = 'larry'".
+ --user (-u)     Optional username. Overrides the user setting in config.yml
+ --password (-p) Optional password. Overrides the password setting in config.yml
+ --host (-o)     Optional host. Overrides the host setting in config.yml
+ --dbname (-n)   Optional database name. Overrides the dbname setting in config.yml
+ --bitmask (-b)  Bitmask to use. May be one or more of JSON_* constants
+                 Usage example: `dump to:json -b JSON_PRETTY_PRINT -b JSON_UNESCAPED_SLASHES table` (multiple values allowed)
+ --help (-h)     Display this help message.
+ --version (-V)  Display this application version.
+ --ansi          Force ANSI output.
+ --no-ansi       Disable ANSI output.
 
-
-``` bash
-php dump to:yaml mytable othertable
-mytable:
-  -
-    mytable_id: '1'
-    column: column for row 1
-  -
-    mytable_id: '2'
-    column: column for row 2
-othertable
-  -
-    othertable_id: '1'
-    data: ABC123
-    mytable_id: '1'
-  -
-    othertable_id: '2'
-    data: DEF456
-    mytable_id: '2'
-```
-
-
-### Example - Dumping using the --dbname argument
-
-``` bash
-php dump to:yaml store language --dbname sakila
-store:
-  -
-    store_id: '1'
-    manager_staff_id: '1'
-    address_id: '1'
-    last_update: '2006-02-15 04:57:12'
-  -
-    store_id: '2'
-    manager_staff_id: '2'
-    address_id: '2'
-    last_update: '2006-02-15 04:57:12'
-language:
-  -
-    language_id: '1'
-    name: English
-    last_update: '2006-02-15 05:02:19'
-  -
-    language_id: '2'
-    name: Italian
-    last_update: '2006-02-15 05:02:19'
-  -
-    language_id: '3'
-    name: Japanese
-    last_update: '2006-02-15 05:02:19'
-  -
-    language_id: '4'
-    name: Mandarin
-    last_update: '2006-02-15 05:02:19'
-  -
-    language_id: '5'
-    name: French
-    last_update: '2006-02-15 05:02:19'
-  -
-    language_id: '6'
-    name: German
-    last_update: '2006-02-15 05:02:19'
-```
-
+Help:
+ Available JSON constants are: JSON_HEX_QUOT, JSON_HEX_TAG, JSON_HEX_AMP, JSON_HEX_APOS, JSON_NUMERIC_CHECK, JSON_PRETTY_PRINT, JSON_UNESCAPED_SLASHES, JSON_FORCE_OBJECT and JSON_UNESCAPED_UNICODE.
+ See http://php.net/manual/en/json.constants.php for more information about what these do.
+ ```
 
 ## Configuration
 
-### Use the config:set command to set the configuration.
+### Initializing your configuration
 
 ``` bash
 php dump help config:set
@@ -184,7 +131,7 @@ Options:
 ```
 
 
-### Use the config:get command to get the configuration values.
+### Retrieving your configuration options.
 
 ``` bash
 php dump help config:get

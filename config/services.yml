@@ -1,0 +1,19 @@
+services:
+    config:
+        class: "\Access9\Config"
+    config_get:
+        class: "\Access9\Console\Command\ConfigGetCommand"
+    config_set:
+        class: "\Access9\Console\Command\ConfigSetCommand"
+    dump_json:
+        class: "\Access9\Console\Command\DumpJsonCommand"
+    dump_yaml:
+        class: "\Access9\Console\Command\DumpYamlCommand"
+    application:
+        class: "\Access9\Console\Application"
+        calls:
+            - [add, ["@config_get"]]
+            - [add, ["@config_set"]]
+            - [add, ["@dump_json"]]
+            - [add, ["@dump_yaml"]]
+            - [setConfig, ["@config"]]

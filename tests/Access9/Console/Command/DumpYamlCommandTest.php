@@ -1,6 +1,7 @@
 <?php
 namespace Access9\Tests\Console\Command;
 
+use Access9\Config;
 use Access9\Console\Application;
 use Access9\Console\Command\DumpYamlCommand;
 use Doctrine\DBAL\Schema\Column;
@@ -23,7 +24,7 @@ class DumpYamlCommandTest extends \PHPUnit_Framework_TestCase
         $application = $this->getApplication();
         $application->add(new DumpYamlCommand());
 
-        $command = $application->find('to:yaml');
+        $command       = $application->find('to:yaml');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName(),
@@ -43,6 +44,7 @@ class DumpYamlCommandTest extends \PHPUnit_Framework_TestCase
     private function getApplication()
     {
         $application = new Application();
+        $application->setConfig(new Config());
         $application->setAutoExit(false);
         $this->createTestDb($application);
         return $application;

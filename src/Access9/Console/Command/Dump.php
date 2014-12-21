@@ -112,7 +112,7 @@ class Dump extends sfCommand
     /**
      * Returns whether the given $table exists as a table or view in the database.
      *
-     * @param string $table
+     * @param string                                      $table
      * @param \Doctrine\DBAL\Schema\AbstractSchemaManager $sm
      * @return bool
      */
@@ -126,7 +126,10 @@ class Dump extends sfCommand
         // Provides similar functionality to Doctine's SchemaManager::tableExists method.
         $viewNames = array_map('strtolower', (array) $table);
         $hasView   = count($viewNames) == count(
-            \array_intersect($viewNames, array_map('strtolower', array_keys($sm->listViews())))
+            \array_intersect(
+                $viewNames,
+                array_map('strtolower', array_keys($sm->listViews()))
+            )
         );
 
         return $hasView;

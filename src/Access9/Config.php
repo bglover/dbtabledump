@@ -25,10 +25,17 @@ class Config
      */
     public function __construct()
     {
-        $path = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config';
+        $path = realpath(
+            __DIR__
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . 'config'
+        );
 
         // Use the appropriate file for testing.
-        $this->configFile = $path . DIRECTORY_SEPARATOR . (defined('PHPUNIT') ? 'config_test.yml' : 'config.yml');
+        $this->configFile = $path . DIRECTORY_SEPARATOR
+            . (defined('PHPUNIT') ? 'config_test.yml' : 'config.yml');
+
         if (!file_exists($this->configFile)) {
             if (!is_writable($path)) {
                 throw new FileNotWritableException(
@@ -37,7 +44,7 @@ class Config
             }
             copy($this->configFile . '.dist', $this->configFile);
         }
-        $this->config     = Yaml::parse($this->configFile);
+        $this->config = Yaml::parse($this->configFile);
     }
 
     /**
@@ -124,6 +131,9 @@ class Config
         file_put_contents($this->configFile, Yaml::dump($this->config));
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return Yaml::dump($this->config);

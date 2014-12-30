@@ -14,7 +14,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 class Application extends sfApplication
 {
     const APP_NAME   = 'DbTableDump';
-    const APP_VERION = '0.7.0';
+    const APP_VERION = '0.7.1';
 
     /**
      * @var \Doctrine\DBAL\Connection
@@ -53,7 +53,7 @@ class Application extends sfApplication
         }
 
         $this->db = DriverManager::getConnection(
-            $this->config->getConfig($user, $password, $host, $dbname)
+            $this->config->toArray($user, $password, $host, $dbname)
         );
 
         return $this->db;

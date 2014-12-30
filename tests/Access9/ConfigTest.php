@@ -57,7 +57,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests Config::getConfig
+     * Tests Config::toArray
      */
     public function testGetConfig()
     {
@@ -69,11 +69,11 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             'driver'   => 'pdo_sqlite',
             'host'     => null
         ];
-        $this->assertSame($expected, $this->config->getConfig());
+        $this->assertSame($expected, $this->config->toArray());
     }
 
     /**
-     * Tests Config::getConfig
+     * Tests Config::toArray
      */
     public function testGetConfigWithParams()
     {
@@ -87,7 +87,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         ];
         $this->assertSame(
             $expected,
-            $this->config->getConfig('user-param', 'password-param', 'host-param', 'dbname-param')
+            $this->config->toArray('user-param', 'password-param', 'host-param', 'dbname-param')
         );
     }
 

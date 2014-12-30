@@ -97,7 +97,7 @@ class Config
      * @param string|null $dbname
      * @return array
      */
-    public function getConfig($user = null, $password = null, $host = null, $dbname = null)
+    public function toArray($user = null, $password = null, $host = null, $dbname = null)
     {
         if ($user) {
             $this->config['user'] = $user;

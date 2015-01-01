@@ -16,6 +16,18 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
      */
     private $application;
 
+
+    protected function setUp()
+    {
+        $this->application = new Application();
+        $this->application->setConfig(new Config());
+    }
+
+    protected function tearDown()
+    {
+        $this->application = null;
+    }
+
     public function testGetConnection()
     {
         $connection = $this->application->getConnection();
@@ -44,16 +56,5 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         foreach ($definition->getOptions() as $option) {
             $this->assertNotContains($option->getName(), ['quiet', 'no-interaction', 'verbose']);
         }
-    }
-
-    protected function setUp()
-    {
-        $this->application = new Application();
-        $this->application->setConfig(new Config());
-    }
-
-    protected function tearDown()
-    {
-        $this->application = null;
     }
 }

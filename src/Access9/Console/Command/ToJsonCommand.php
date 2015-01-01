@@ -6,11 +6,11 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class DumpTableCommand
+ * Class ToJsonCommand
  *
  * @package Access9\Console\Command
  */
-class DumpJsonCommand extends Dump
+class ToJsonCommand extends Dump
 {
     /**
      * @var array

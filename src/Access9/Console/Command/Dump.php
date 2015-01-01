@@ -123,10 +123,10 @@ class Dump extends sfCommand
             return true;
         }
 
-        // Provides similar functionality to Doctine's SchemaManager::tableExists method.
+        // Provides similar functionality to Doctrine's SchemaManager::tableExists method.
         $viewNames = array_map('strtolower', (array) $table);
         $hasView   = count($viewNames) == count(
-            \array_intersect(
+            array_intersect(
                 $viewNames,
                 array_map('strtolower', array_keys($sm->listViews()))
             )
@@ -167,7 +167,7 @@ class Dump extends sfCommand
     }
 
     /**
-     * Returns an instance of \Doctrin\DBAL\Connection.
+     * Returns an instance of \Doctrine\DBAL\Connection.
      *
      * @param string|null $user
      * @param string|null $password

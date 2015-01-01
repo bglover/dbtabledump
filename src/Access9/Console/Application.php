@@ -14,7 +14,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 class Application extends sfApplication
 {
     const APP_NAME   = 'DbTableDump';
-    const APP_VERION = '0.7.1';
+    const APP_VERSION = '0.8.0';
 
     /**
      * @var \Doctrine\DBAL\Connection
@@ -31,7 +31,7 @@ class Application extends sfApplication
      */
     public function __construct($name = 'UNKNOWN', $version = 'UNKNOWN')
     {
-        parent::__construct(self::APP_NAME, self::APP_VERION);
+        parent::__construct(self::APP_NAME, self::APP_VERSION);
         $this->overrideDefaultDefinition();
     }
 
@@ -48,7 +48,7 @@ class Application extends sfApplication
     public function getConnection($user = null, $password = null, $host = null, $dbname = null)
     {
         // Return the connection if it's already been created AND no custom params are provided.
-        if ($this->db && (!$user && !$password && !$host && !$dbname)) {
+        if ((!$user && !$password && !$host && !$dbname) && $this->db) {
             return $this->db;
         }
 

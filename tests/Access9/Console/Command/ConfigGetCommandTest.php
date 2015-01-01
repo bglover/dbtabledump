@@ -1,22 +1,41 @@
 <?php
-namespace Access9\Console\Command;
+namespace Access9\Tests\Console\Command;
 
 use Access9\Config;
 use Access9\Console\Application;
+use Access9\Console\Command\ConfigGetCommand;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * Class ConfigGetCommandTest
  *
- * @package Access9\Console\Command
+ * @package Access9\Tests\Console\Command
  */
 class ConfigGetCommandTest extends \PHPUnit_Framework_TestCase
 {
     const COMMAND = 'config:get';
+
     /**
      * @var CommandTester
      */
     private $cmdTester;
+
+    protected function setUp()
+    {
+        $application = new Application();
+        $application->setConfig(new Config());
+        $application->setAutoExit(false);
+        $application->add(new ConfigGetCommand());
+
+        $this->cmdTester = new CommandTester(
+            $application->find('config:get')
+        );
+    }
+
+    protected function tearDown()
+    {
+        $this->cmdTester = null;
+    }
 
     /**
      * Basic test of ConfigGetCommand::execute
@@ -55,22 +74,5 @@ class ConfigGetCommandTest extends \PHPUnit_Framework_TestCase
             $display = $this->cmdTester->getDisplay(true);
             $this->assertSame($exp, trim($display), "I expected: '${exp}'");
         }
-    }
-
-    protected function setUp()
-    {
-        $application = new Application();
-        $application->setConfig(new Config());
-        $application->setAutoExit(false);
-        $application->add(new ConfigGetCommand());
-
-        $this->cmdTester = new CommandTester(
-            $application->find('config:get')
-        );
-    }
-
-    protected function tearDown()
-    {
-        $this->cmdTester = null;
     }
 }

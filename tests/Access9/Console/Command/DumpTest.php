@@ -15,6 +15,20 @@ class DumpTest extends \PHPUnit_Framework_TestCase
      */
     private $command;
 
+    protected function setUp()
+    {
+        $this->command = new Dump('dump');
+        $ref           = new \ReflectionClass($this->command);
+        $method        = $ref->getMethod('configure');
+        $method->setAccessible(true);
+        $method->invoke($this->command);
+    }
+
+    protected function tearDown()
+    {
+        $this->command = null;
+    }
+
     public function testArgumentDefinition()
     {
         $def       = $this->command->getDefinition();
@@ -139,19 +153,5 @@ class DumpTest extends \PHPUnit_Framework_TestCase
     public function testGetDb()
     {
         $this->markTestIncomplete('todo');
-    }
-
-    protected function setUp()
-    {
-        $this->command = new Dump('dump');
-        $ref           = new \ReflectionClass($this->command);
-        $method        = $ref->getMethod('configure');
-        $method->setAccessible(true);
-        $method->invoke($this->command);
-    }
-
-    protected function tearDown()
-    {
-        $this->command = null;
     }
 }

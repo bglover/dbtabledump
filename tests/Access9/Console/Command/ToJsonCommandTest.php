@@ -3,35 +3,35 @@ namespace Access9\Tests\Console\Command;
 
 use Access9\Config;
 use Access9\Console\Application;
-use Access9\Console\Command\DumpYamlCommand;
+use Access9\Console\Command\ToJsonCommand;
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Types\Type;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * Class DumpYamlCommandTest
+ * Class ToJsonCommandTest
  *
  * @package Access9\Tests\Console\Command
  */
-class DumpYamlCommandTest extends \PHPUnit_Framework_TestCase
+class ToJsonCommandTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Basic test of DumpYamlCommad::execute
+     * Basic test of ToJsonCommad::execute
      */
     public function testExecute()
     {
         $application = $this->getApplication();
-        $application->add(new DumpYamlCommand());
+        $application->add(new ToJsonCommand());
 
-        $command       = $application->find('to:yaml');
+        $command       = $application->find('to:json');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName(),
             'tables'  => ['phpunit']
         ]);
 
-        $expected = "phpunit:\n  -\n    id: '1'\n    name: sweet\n  -\n    id: '2'\n    name: cheeks";
+        $expected = '{"phpunit":[{"id":"1","name":"sweet"},{"id":"2","name":"cheeks"}]}';
         $display  = $commandTester->getDisplay(true);
         $this->assertSame($expected, trim($display));
     }

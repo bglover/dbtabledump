@@ -5,15 +5,21 @@ services:
         class: "\Access9\Console\Command\ConfigGetCommand"
     config_set:
         class: "\Access9\Console\Command\ConfigSetCommand"
-    dump_json:
-        class: "\Access9\Console\Command\DumpJsonCommand"
-    dump_yaml:
-        class: "\Access9\Console\Command\DumpYamlCommand"
+    to_json:
+        class: "\Access9\Console\Command\ToJsonCommand"
+    to_yaml:
+        class: "\Access9\Console\Command\ToYamlCommand"
+    to_delimited:
+        class: "\Access9\Console\Command\ToDelimitedCommand"
+    to_xml:
+        class: "\Access9\Console\Command\ToXmlCommand"
     application:
         class: "\Access9\Console\Application"
         calls:
             - [add, ["@config_get"]]
             - [add, ["@config_set"]]
-            - [add, ["@dump_json"]]
-            - [add, ["@dump_yaml"]]
+            - [add, ["@to_json"]]
+            - [add, ["@to_yaml"]]
+            - [add, ["@to_delimited"]]
+            - [add, ["@to_xml"]]
             - [setConfig, ["@config"]]

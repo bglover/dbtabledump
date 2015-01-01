@@ -1,24 +1,27 @@
 <?php
 namespace Access9\Console\Command;
 
+use Access9\Writer\XmlWriter;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class DumpTableCommand
+ * Class ToXmlCommand
  *
  * @package Access9\Console\Command
  */
-class DumpYamlCommand extends Dump
+class ToXmlCommand extends Dump
 {
     /**
      * Configures the current command.
      */
     protected function configure()
     {
-        $this->setName('to:yaml')
-            ->setDescription('Dump one or more database tables to yaml format.');
+        $this->setName('to:xml')
+            ->setDescription('Dump one or more database tables to xml.')
+            ->setHelp(
+                'Column names that contain spaces will have the spaces converted to underscores.'
+            );
         parent::configure();
     }
 
@@ -28,6 +31,7 @@ class DumpYamlCommand extends Dump
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $results = $this->toArray($input);
-        $output->writeln(Yaml::dump($results, 4, 2));
+        $writer  = new XmlWriter($results);
+        $output->writeln($writer->format());
     }
 }

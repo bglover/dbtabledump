@@ -81,8 +81,8 @@ class Dump extends sfCommand
     {
         // Begin the base SQL.
         $sql = 'SELECT * FROM %s'
-            . $this->setLimit($input->getOption('limit'))
-            . $this->setWhere($input->getOption('where'));
+            . $this->setWhere($input->getOption('where'))
+            . $this->setLimit($input->getOption('limit'));
 
         // Array to hold the result set.
         $results = [];

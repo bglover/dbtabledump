@@ -17,17 +17,17 @@ class ConfigSetCommand extends sfCommand
     /**
      * @var array
      */
-    private $validDrivers = [
+    private static $validDrivers = [
+        'pdo_mysql',
         'drizzle_pdo_mysql',
         'mysqli',
-        'oci8',
-        'pdo_mysql',
-        'pdo_oci',
-        'pdo_pgsql',
         'pdo_sqlite',
+        'pdo_pgsql',
+        'pdo_oci',
         'pdo_sqlsrv',
+        'sqlsrv',
+        'oci8',
         'sqlanywhere',
-        'sqlsrv'
     ];
 
     /**
@@ -68,11 +68,11 @@ class ConfigSetCommand extends sfCommand
                         'd',
                         InputOption::VALUE_REQUIRED,
                         'Driver used to connect to the database. Valid options are '
-                        . PHP_EOL . 'pdo_mysql, drizzle_pdo_mysql, mysqli, pdo_sqlite, pdo_pgsql, '
-                        . PHP_EOL . 'pdo_oci, pdo_sqlsrv, sqlsrv, oci8 and sqlanywhere.'
+                        . PHP_EOL . implode(', ', self::$validDrivers)
                     )
                 ])
             );
+
         parent::configure();
     }
 
@@ -103,10 +103,10 @@ class ConfigSetCommand extends sfCommand
         }
 
         if (null !== ($driver = $input->getOption('driver'))) {
-            if (!in_array($driver, $this->validDrivers)) {
+            if (!in_array($driver, self::$validDrivers)) {
                 throw new \InvalidArgumentException(
                     '"' . $driver . '" is not a valid driver. Valid drivers are: '
-                    . PHP_EOL . ' - ' . implode(PHP_EOL . ' - ', $this->validDrivers)
+                    . PHP_EOL . ' - ' . implode(PHP_EOL . ' - ', self::$validDrivers)
                 );
             }
             $config->driver = $driver;

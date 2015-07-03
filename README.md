@@ -1,3 +1,5 @@
+[![License](https://poser.pugx.org/access9/dbtabledump/license)](https://packagist.org/packages/access9/dbtabledump) [![Latest Stable Version](https://poser.pugx.org/access9/dbtabledump/v/stable)](https://packagist.org/packages/access9/dbtabledump)
+
 # DbTableDump - The Database Table Dumper
 
 DbTableDump is a PHP CLI tool to dump database tables to various formats.

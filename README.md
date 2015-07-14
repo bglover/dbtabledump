@@ -59,7 +59,7 @@ Make sure you get the required vendor dependencies using composer:
 composer update -o
 ```
 
-- I recommend appending `--no-dev` if you don't need the development dependencies.
+- I recommend appending `--prefer-dist` if you don't need the development dependencies.
 
 
 ## Supported Formats

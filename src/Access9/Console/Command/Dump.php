@@ -125,7 +125,7 @@ class Dump extends sfCommand
 
         // Provides similar functionality to Doctrine's SchemaManager::tableExists method.
         $viewNames = array_map('strtolower', (array) $table);
-        $hasView   = count($viewNames) == count(
+        $hasView   = count($viewNames) === count(
             array_intersect(
                 $viewNames,
                 array_map('strtolower', array_keys($sm->listViews()))
@@ -138,7 +138,7 @@ class Dump extends sfCommand
     /**
      * Return a limit clause to be appended to the SQL.
      *
-     * @param string $limit
+     * @param int $limit
      * @return string
      */
     private function setLimit($limit)

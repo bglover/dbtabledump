@@ -11,15 +11,15 @@
     ],
     "require": {
         "php": ">=5.4",
-        "symfony/config": "~2.6",
-        "symfony/console": "~2.6",
-        "symfony/dependency-injection": "~2.6",
-        "symfony/yaml": "~2.6",
+        "symfony/config": "~2.7",
+        "symfony/console": "~2.7",
+        "symfony/dependency-injection": "~2.7",
+        "symfony/yaml": "~2.7",
         "doctrine/dbal": "~2.5"
     },
     "require-dev": {
         "ext-reflection": "*",
-        "phpunit/phpunit": "~4.4",
+        "phpunit/phpunit": "~4.7",
         "mikey179/vfsStream": "~1"
     },
     "extra": {

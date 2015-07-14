@@ -2,12 +2,14 @@
 namespace Access9\Tests;
 
 use Access9\Config;
+use InvalidArgumentException;
 use org\bovigo\vfs\vfsStream;
 
 /**
  * Class ConfigTest
  *
  * @package Access9\Tests\Console
+ * @coversDefaultClass Access9\Config
  */
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,9 +18,43 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     private $config;
 
+    private $configPath;
+
+    /**
+     * @inheritdoc
+     */
+    protected function setUp()
+    {
+        $this->configPath = __DIR__
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . 'config';
+
+        $this->config = new Config();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function tearDown()
+    {
+        $this->config = null;
+    }
+
+    /**
+     * @covers Access9\Config::__construct
+     */
     public function testConstruct()
     {
         $this->assertInstanceOf('\Access9\Config', $this->config);
+    }
+
+    /**
+     * @covers Access9\Config::__construct
+     */
+    public function testConstructWithNoConfig()
+    {
+        $this->markTestIncomplete('todo');
     }
 
     /**
@@ -50,14 +86,17 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
         $actual   = realpath($prop->getValue($this->config));
         $expected = realpath(
-            __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config'
+            __DIR__
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . 'config'
             . DIRECTORY_SEPARATOR . 'config_test.yml'
         );
         $this->assertSame($expected, $actual);
     }
 
     /**
-     * Tests Config::toArray
+     * @covers Access9\Config::toArray
      */
     public function testGetConfig()
     {
@@ -73,7 +112,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests Config::toArray
+     * @covers Access9\Config::toArray
      */
     public function testGetConfigWithParams()
     {
@@ -91,6 +130,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @covers Access9\Config::__set
+     */
     public function test__set()
     {
         $expected           = 'Boogers';
@@ -102,7 +144,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \OutOfRangeException
+     * @expectedException InvalidArgumentException
      * @expectedExceptionMessage Attempting to set a non-existent configuration key
      */
     public function test__setThrowsException()
@@ -110,6 +152,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->config->randomunknownprop = 'this is totally going to throw an exception';
     }
 
+    /**
+     * @covers Access9\Config::__get
+     */
     public function test__get()
     {
         $this->assertNull($this->config->user);
@@ -119,6 +164,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->config->driver, 'pdo_sqlite');
     }
 
+    /**
+     * @covers Access9\Config::__isset
+     */
     public function test__isset()
     {
         // These two are false because the config for phpunit doesn't define these.
@@ -130,6 +178,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(isset($this->config->driver));
     }
 
+    /**
+     * @covers Access9\Config::Save
+     */
     public function testSave()
     {
         $ref  = new \ReflectionClass($this->config);
@@ -159,21 +210,5 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             . 'host: null' . $eol;
 
         $this->assertStringEqualsFile($file, $expected);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function setUp()
-    {
-        $this->config = new Config();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function tearDown()
-    {
-        $this->config = null;
     }
 }

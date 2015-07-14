@@ -1,6 +1,7 @@
 <?php
 namespace Access9;
 
+use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -25,26 +26,43 @@ class Config
      */
     public function __construct()
     {
-        $path = realpath(
-            __DIR__
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . 'config'
-        );
+        $path = $this->getPath();
 
         // Use the appropriate file for testing.
         $this->configFile = $path . DIRECTORY_SEPARATOR
             . (defined('PHPUNIT') ? 'config_test.yml' : 'config.yml');
 
         if (!file_exists($this->configFile)) {
-            if (!is_writable($path)) {
-                throw new FileNotWritableException(
-                    "The directory '{$path}' is not writable. Check the directory permissions and try again."
-                );
-            }
+            $this->isWritable($path);
             copy($this->configFile . '.dist', $this->configFile);
         }
         $this->config = Yaml::parse($this->configFile);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getPath()
+    {
+        return realpath(
+            __DIR__
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . 'config'
+        );
+    }
+
+    /**
+     * @param string $location
+     * @throws FileNotWritableException
+     */
+    protected function isWritable($location)
+    {
+        if (!is_writable($location)) {
+            throw new FileNotWritableException(
+                "'{$location}' is not writable. Check the file/directory permissions and try again."
+            );
+        }
     }
 
     /**
@@ -65,13 +83,14 @@ class Config
     /**
      * Public setter.
      *
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param mixed  $value
+     * @throws InvalidArgumentException
      */
     public function __set($key, $value)
     {
         if (!array_key_exists($key, $this->config)) {
-            throw new \OutOfRangeException('Attempting to set a non-existent configuration key');
+            throw new InvalidArgumentException('Attempting to set a non-existent configuration key');
         }
 
         $this->config[$key] = $value;
@@ -120,14 +139,12 @@ class Config
 
     /**
      * Save the configuration.
+     *
+     * @throws FileNotWritableException
      */
     public function save()
     {
-        if (!is_writable($this->configFile)) {
-            throw new FileNotWritableException(
-                "The config file at {$this->configFile} is not writable. Check the file permissions and try again."
-            );
-        }
+        $this->isWritable($this->configFile);
         file_put_contents($this->configFile, Yaml::dump($this->config));
     }
 

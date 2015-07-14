@@ -81,28 +81,39 @@ class ConfigSetCommand extends sfCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->validateOptions($input);
+        $options = $input->getOptions();
+        $this->validateOptions($options);
+        $this->updateConfig($options);
+    }
+
+    /**
+     * @param array $options
+     * @throws \Access9\FileNotWritableException
+     * @throws \InvalidArgumentException
+     */
+    private function updateConfig(array $options)
+    {
 
         /** @var \Access9\Config $config */
         $config = $this->getApplication()->getConfig();
 
-        if (null !== ($user = $input->getOption('user'))) {
-            $config->user = $user;
+        if ($options['user']) {
+            $config->user = $options['user'];
         }
 
-        if (null !== ($password = $input->getOption('password'))) {
+        if (null !== ($password = $options['password'])) {
             $config->password = $password;
         }
 
-        if (null !== ($host = $input->getOption('host'))) {
+        if (null !== ($host = $options['host'])) {
             $config->host = $host;
         }
 
-        if (null !== ($dbname = $input->getOption('dbname'))) {
+        if (null !== ($dbname = $options['dbname'])) {
             $config->dbname = $dbname;
         }
 
-        if (null !== ($driver = $input->getOption('driver'))) {
+        if (null !== ($driver = $options['driver'])) {
             if (!in_array($driver, self::$validDrivers)) {
                 throw new \InvalidArgumentException(
                     '"' . $driver . '" is not a valid driver. Valid drivers are: '
@@ -118,13 +129,13 @@ class ConfigSetCommand extends sfCommand
     /**
      * Validate that at least one option is given.
      *
-     * @param InputInterface $input
+     * @param array $options
      * @return bool
      * @throws \InvalidArgumentException
      */
-    private function validateOptions(InputInterface $input)
+    private function validateOptions(array $options)
     {
-        foreach ($input->getOptions() as $o) {
+        foreach ($options as $o) {
             if (!empty($o)) {
                 return;
             }

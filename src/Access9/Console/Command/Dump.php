@@ -79,11 +79,6 @@ class Dump extends sfCommand
      */
     protected function toArray(InputInterface $input)
     {
-        // Begin the base SQL.
-        $sql = 'SELECT * FROM %s'
-            . $this->setWhere($input->getOption('where'))
-            . $this->setLimit($input->getOption('limit'));
-
         // Array to hold the result set.
         $results = [];
 
@@ -93,77 +88,27 @@ class Dump extends sfCommand
             $input->getOption('host'),
             $input->getOption('dbname')
         );
-        foreach ($input->getArgument('tables') as $table) {
-            // $table isn't sent to the db yet, so quoting isn't required.
-            if (!$this->tableExists($table, $db->getSchemaManager())) {
-                throw new \InvalidArgumentException(
-                    "The database table '$table' was not found."
-                );
-            }
 
-            $results[$table] = $db->fetchAll(
-                sprintf($sql, $db->quoteIdentifier($table))
-            );
+        // Get the query builder and begin the select.
+        $qb = $db->createQueryBuilder()->select('*');
+
+        if ($input->getOption('where')) {
+            $qb->where($input->getOption('where'));
+        }
+
+        if ($input->getOption('limit')) {
+            $qb->setMaxResults($input->getOption('limit'));
+        }
+
+        foreach ($input->getArgument('tables') as $table) {
+            $tableBuilder = clone $qb;
+            $results[$table] = $tableBuilder
+                ->from($table)
+                ->execute()
+                ->fetchAll();
         }
 
         return $results;
-    }
-
-    /**
-     * Returns whether the given $table exists as a table or view in the database.
-     *
-     * @param string                                      $table
-     * @param \Doctrine\DBAL\Schema\AbstractSchemaManager $sm
-     * @return bool
-     */
-    private function tableExists($table, $sm)
-    {
-        $hasTable = $sm->tablesExist($table);
-        if ($hasTable) {
-            return true;
-        }
-
-        // Provides similar functionality to Doctrine's SchemaManager::tableExists method.
-        $viewNames = array_map('strtolower', (array) $table);
-        $hasView   = count($viewNames) === count(
-            array_intersect(
-                $viewNames,
-                array_map('strtolower', array_keys($sm->listViews()))
-            )
-        );
-
-        return $hasView;
-    }
-
-    /**
-     * Return a limit clause to be appended to the SQL.
-     *
-     * @param int $limit
-     * @return string
-     */
-    private function setLimit($limit)
-    {
-        $limit = (int) $limit;
-        if ($limit) {
-            return ' LIMIT ' . $limit;
-        }
-
-        return '';
-    }
-
-    /**
-     * Returns a where clause to be appended to the SQL.
-     *
-     * @param string $where
-     * @return string
-     */
-    private function setWhere($where)
-    {
-        if ($where) {
-            return ' WHERE ' . $where;
-        }
-
-        return '';
     }
 
     /**

@@ -127,29 +127,6 @@ class DumpTest extends \PHPUnit_Framework_TestCase
         $this->markTestIncomplete('todo');
     }
 
-    public function testSetLimit()
-    {
-        $method = new \ReflectionMethod($this->command, 'setLimit');
-        $method->setAccessible(true);
-
-        $this->assertEmpty($method->invokeArgs($this->command, ['']));
-        $this->assertSame(' LIMIT 1', $method->invokeArgs($this->command, ['1']));
-    }
-
-    public function testSetWhere()
-    {
-        $method = new \ReflectionMethod($this->command, 'setWhere');
-        $method->setAccessible(true);
-
-        $this->assertEmpty($method->invokeArgs($this->command, ['']));
-        $this->assertSame(' WHERE id = \'1\'', $method->invokeArgs($this->command, ['id = \'1\'']));
-    }
-
-    public function testTableExists()
-    {
-        $this->markTestIncomplete('todo');
-    }
-
     public function testGetDb()
     {
         $this->markTestIncomplete('todo');

@@ -1,20 +1,20 @@
 services:
     config:
-        class: "\Access9\Config"
+        class: "\\Access9\\Config"
     config_get:
-        class: "\Access9\Console\Command\ConfigGetCommand"
+        class: "\\Access9\\Console\\Command\\ConfigGetCommand"
     config_set:
-        class: "\Access9\Console\Command\ConfigSetCommand"
+        class: "\\Access9\\Console\\Command\\ConfigSetCommand"
     to_json:
-        class: "\Access9\Console\Command\ToJsonCommand"
+        class: "\\Access9\\Console\\Command\\ToJsonCommand"
     to_yaml:
-        class: "\Access9\Console\Command\ToYamlCommand"
+        class: "\\Access9\\Console\\Command\\ToYamlCommand"
     to_delimited:
-        class: "\Access9\Console\Command\ToDelimitedCommand"
+        class: "\\Access9\\Console\\Command\\ToDelimitedCommand"
     to_xml:
-        class: "\Access9\Console\Command\ToXmlCommand"
+        class: "\\Access9\\Console\\Command\\ToXmlCommand"
     application:
-        class: "\Access9\Console\Application"
+        class: "\\Access9\\Console\\Application"
         calls:
             - [add, ["@config_get"]]
             - [add, ["@config_set"]]

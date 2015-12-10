@@ -14,7 +14,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 class Application extends sfApplication
 {
     const APP_NAME   = 'DbTableDump';
-    const APP_VERSION = '0.8.3';
+    const APP_VERSION = '0.8.5.1';
 
     /**
      * @var \Doctrine\DBAL\Connection

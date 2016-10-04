@@ -36,7 +36,7 @@ class Config
             $this->isWritable($path);
             copy($this->configFile . '.dist', $this->configFile);
         }
-        $this->config = Yaml::parse($this->configFile);
+        $this->config = Yaml::parse(file_get_contents($this->configFile));
     }
 
     /**

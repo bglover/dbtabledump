@@ -48,6 +48,7 @@ class ToJsonCommandTest extends TestCase
         $application->setConfig(new Config());
         $application->setAutoExit(false);
         $this->createTestDb($application);
+
         return $application;
     }
 

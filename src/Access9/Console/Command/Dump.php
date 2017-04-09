@@ -101,7 +101,7 @@ class Dump extends sfCommand
         }
 
         foreach ($input->getArgument('tables') as $table) {
-            $tableBuilder = clone $qb;
+            $tableBuilder    = clone $qb;
             $results[$table] = $tableBuilder
                 ->from($table)
                 ->execute()

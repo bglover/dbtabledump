@@ -8,5 +8,4 @@ namespace Access9;
  */
 class FileNotWritableException extends \Exception
 {
-
 }

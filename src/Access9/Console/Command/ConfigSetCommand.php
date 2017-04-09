@@ -130,8 +130,8 @@ class ConfigSetCommand extends sfCommand
      * Validate that at least one option is given.
      *
      * @param array $options
-     * @return bool
      * @throws \InvalidArgumentException
+     * @return bool
      */
     private function validateOptions(array $options)
     {

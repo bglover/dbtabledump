@@ -13,7 +13,7 @@ use Symfony\Component\Console\Input\InputDefinition;
  */
 class Application extends sfApplication
 {
-    const APP_NAME   = 'DbTableDump';
+    const APP_NAME    = 'DbTableDump';
     const APP_VERSION = '0.10';
 
     /**
@@ -42,8 +42,8 @@ class Application extends sfApplication
      * @param string|null $password
      * @param string|null $host
      * @param string|null $dbname
-     * @return \Doctrine\DBAL\Connection
      * @throws \Doctrine\DBAL\DBALException
+     * @return \Doctrine\DBAL\Connection
      */
     public function getConnection($user = null, $password = null, $host = null, $dbname = null)
     {

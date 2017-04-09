@@ -13,7 +13,7 @@ class DelimitedWriterTest extends TestCase
 {
     public function testFormat()
     {
-        $writer = new DelimitedWriter($this->getArray(), '|');
+        $writer   = new DelimitedWriter($this->getArray(), '|');
         $expected = [
             'store' => 'store_id|manager_staff_id|address_id|last_update'
                     .  PHP_EOL
@@ -26,7 +26,7 @@ class DelimitedWriterTest extends TestCase
 
     public function testFormatQuoted()
     {
-        $writer = new DelimitedWriter($this->getArray(), '|', true);
+        $writer   = new DelimitedWriter($this->getArray(), '|', true);
         $expected = [
             'store' => '"store_id"|"manager_staff_id"|"address_id"|"last_update"'
                     .  PHP_EOL
@@ -39,7 +39,7 @@ class DelimitedWriterTest extends TestCase
 
     public function testFormatWithLiteralTab()
     {
-        $writer = new DelimitedWriter($this->getArray(), '\t');
+        $writer   = new DelimitedWriter($this->getArray(), '\t');
         $expected = [
             'store' => 'store_id	manager_staff_id	address_id	last_update'
                     .  PHP_EOL
@@ -52,7 +52,7 @@ class DelimitedWriterTest extends TestCase
 
     public function testFormatWithLiteralTabQuoted()
     {
-        $writer = new DelimitedWriter($this->getArray(), '\t', true);
+        $writer   = new DelimitedWriter($this->getArray(), '\t', true);
         $expected = [
             'store' => '"store_id"	"manager_staff_id"	"address_id"	"last_update"'
                     .  PHP_EOL

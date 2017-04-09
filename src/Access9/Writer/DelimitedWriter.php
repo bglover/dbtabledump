@@ -65,6 +65,7 @@ class DelimitedWriter implements WriterInterface
             // Remove the last EOL.
             $data[$table] = trim($data[$table]);
         }
+
         return $data;
     }
 
@@ -79,6 +80,7 @@ class DelimitedWriter implements WriterInterface
         if ($this->quote) {
             $headers = $this->quoteFields($headers);
         }
+
         return implode($this->delimiter, $headers);
     }
 
@@ -93,6 +95,7 @@ class DelimitedWriter implements WriterInterface
         foreach ($fields as &$field) {
             $field = self::QUOTE . $field . self::QUOTE;
         }
+
         return $fields;
     }
 

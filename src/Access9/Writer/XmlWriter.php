@@ -48,8 +48,8 @@ class XmlWriter implements WriterInterface
             }
             $xml->appendChild($table);
             $table = null;
-
         }
+
         return $xml->saveXML();
     }
 }

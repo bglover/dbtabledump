@@ -54,7 +54,7 @@ class ToDelimitedCommand extends Dump
         }
 
         $results = $this->toArray($input);
-        $writer = new DelimitedWriter($results, $delimiter, $input->getOption('quote'));
+        $writer  = new DelimitedWriter($results, $delimiter, $input->getOption('quote'));
         $output->writeln($writer->format());
     }
 

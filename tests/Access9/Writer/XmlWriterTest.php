@@ -2,13 +2,14 @@
 namespace Access9\Tests\Writer;
 
 use Access9\Writer\XmlWriter;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class XmlWriterTest
  *
  * @package Access9\Tests\Writer
  */
-class XmlWriterTest extends \PHPUnit_Framework_TestCase
+class XmlWriterTest extends TestCase
 {
     public function testFormat()
     {

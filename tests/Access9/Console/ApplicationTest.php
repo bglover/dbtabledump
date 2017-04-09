@@ -3,13 +3,14 @@ namespace Access9\Tests\Console;
 
 use Access9\Config;
 use Access9\Console\Application;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class ApplicationTest
  *
  * @package Access9\Tests\Console
  */
-class ApplicationTest extends \PHPUnit_Framework_TestCase
+class ApplicationTest extends TestCase
 {
     /**
      * @var Application

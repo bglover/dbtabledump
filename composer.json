@@ -11,20 +11,20 @@
     ],
     "require": {
         "php": ">=5.5",
-        "symfony/config": "~2.8|~3.0",
-        "symfony/console": "~2.8|~3.0",
-        "symfony/dependency-injection": "~2.8|~3.0",
-        "symfony/yaml": "~2.8|~3.0",
+        "symfony/config": "~3.0",
+        "symfony/console": "~3.0",
+        "symfony/dependency-injection": "~3.0",
+        "symfony/yaml": "~3.0",
         "doctrine/dbal": "~2.5"
     },
     "require-dev": {
         "ext-reflection": "*",
-        "phpunit/phpunit": "~4.8",
+        "phpunit/phpunit": "~6",
         "mikey179/vfsStream": "~1"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.8.x-dev"
+            "dev-master": "0.10.x-dev"
         }
     },
     "bin": ["dump"],

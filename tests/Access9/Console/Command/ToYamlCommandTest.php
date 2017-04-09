@@ -7,6 +7,7 @@ use Access9\Console\Command\ToYamlCommand;
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Types\Type;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
@@ -14,10 +15,10 @@ use Symfony\Component\Console\Tester\CommandTester;
  *
  * @package Access9\Tests\Console\Command
  */
-class ToYamlCommandTest extends \PHPUnit_Framework_TestCase
+class ToYamlCommandTest extends TestCase
 {
     /**
-     * Basic test of ToYamlCommad::execute
+     * Basic test of ToYamlCommand::execute
      */
     public function testExecute()
     {

@@ -4,6 +4,7 @@ namespace Access9\Tests\Console\Command;
 use Access9\Config;
 use Access9\Console\Application;
 use Access9\Console\Command\ConfigGetCommand;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
@@ -11,7 +12,7 @@ use Symfony\Component\Console\Tester\CommandTester;
  *
  * @package Access9\Tests\Console\Command
  */
-class ConfigGetCommandTest extends \PHPUnit_Framework_TestCase
+class ConfigGetCommandTest extends TestCase
 {
     const COMMAND = 'config:get';
 

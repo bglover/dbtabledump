@@ -1,12 +1,14 @@
 <?php
 namespace Access9\Tests\Console\Command;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Class ConfigSetCommandTest
  *
  * @package Access9\Tests\Console\Command
  */
-class ConfigSetCommandTest extends \PHPUnit_Framework_TestCase
+class ConfigSetCommandTest extends TestCase
 {
     public function testExecute()
     {

@@ -3,3 +3,4 @@ vendor/
 config/config.yml
 composer.phar
 coverage/
+composer.lock

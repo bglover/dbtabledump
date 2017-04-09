@@ -2,13 +2,14 @@
 namespace Access9\Tests\Writer;
 
 use Access9\Writer\DelimitedWriter;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class DelimitedWriterTest
  *
  * @package Access9\Tests\Writer
  */
-class DelimitedWriterTest extends \PHPUnit_Framework_TestCase
+class DelimitedWriterTest extends TestCase
 {
     public function testFormat()
     {

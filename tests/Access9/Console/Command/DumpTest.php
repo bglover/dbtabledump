@@ -2,13 +2,14 @@
 namespace Access9\Tests\Console\Command;
 
 use Access9\Console\Command\Dump;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class CommandTest
  *
  * @package Access9\Tests\Console\Command
  */
-class DumpTest extends \PHPUnit_Framework_TestCase
+class DumpTest extends TestCase
 {
     /**
      * @var Dump

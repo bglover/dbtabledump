@@ -4,6 +4,7 @@ namespace Access9\Tests;
 use Access9\Config;
 use InvalidArgumentException;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class ConfigTest
@@ -11,7 +12,7 @@ use org\bovigo\vfs\vfsStream;
  * @package Access9\Tests\Console
  * @coversDefaultClass Access9\Config
  */
-class ConfigTest extends \PHPUnit_Framework_TestCase
+class ConfigTest extends TestCase
 {
     /**
      * @var Config

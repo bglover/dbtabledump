@@ -1,24 +1,19 @@
-<phpunit
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.7/phpunit.xsd"
-    backupGlobals="false"
-    bootstrap="vendor/autoload.php"
-    colors="true"
-    verbose="true">
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.1/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         verbose="true"
+         color="true">
     <php>
         <const name="PHPUNIT" value="true"/>
     </php>
-    <testsuites>
-        <testsuite name="DbTableDump">
-            <directory>tests</directory>
-        </testsuite>
-    </testsuites>
+    <testsuite>
+        <directory suffix="Test.php">tests</directory>
+    </testsuite>
+
     <filter>
-        <blacklist>
-            <directory>vendor/</directory>
-        </blacklist>
-        <whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="true">
-            <directory>src/</directory>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
 </phpunit>

@@ -56,7 +56,7 @@ class XmlWriterTest extends TestCase
     <ID>1</ID>
     <name>Mike Hillyer</name>
     <address>23 Workhaven Lane</address>
-    <zip_code/>
+    <zip_code></zip_code>
     <phone>14033335568</phone>
     <city>Lethbridge</city>
     <country>Canada</country>
@@ -66,7 +66,7 @@ class XmlWriterTest extends TestCase
     <ID>2</ID>
     <name>Jon Stephens</name>
     <address>1411 Lillydale Drive</address>
-    <zip_code/>
+    <zip_code></zip_code>
     <phone>6172235589</phone>
     <city>Woodridge</city>
     <country>Australia</country>

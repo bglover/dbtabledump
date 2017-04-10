@@ -50,6 +50,6 @@ class XmlWriter implements WriterInterface
             $table = null;
         }
 
-        return $xml->saveXML();
+        return $xml->saveXML(null, \LIBXML_NOEMPTYTAG);
     }
 }

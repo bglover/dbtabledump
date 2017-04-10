@@ -1,4 +1,5 @@
-[![License](https://poser.pugx.org/access9/dbtabledump/license)](https://packagist.org/packages/access9/dbtabledump) [![Latest Stable Version](https://poser.pugx.org/access9/dbtabledump/v/stable)](https://packagist.org/packages/access9/dbtabledump)
+[![License](https://poser.pugx.org/access9/dbtabledump/license)](https://packagist.org/packages/access9/dbtabledump) [![Latest Stable Version](https://poser.pugx.org/access9/dbtabledump/v/stable)](https://packagist.org/packages/access9/dbtabledump) [![Build Status](https://travis-ci.org/bglover/dbtabledump.svg?branch=master)](https://travis-ci.org/bglover/dbtabledump)
+
 
 # DbTableDump - The Database Table Dumper
 

@@ -1,5 +1,5 @@
 <?php
-namespace Access9\Console\Command;
+namespace Access9\DbTableDump\Console\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class ToJsonCommand
  *
- * @package Access9\Console\Command
+ * @package Access9\DbTableDump\Console\Command
  */
 class ToJsonCommand extends Dump
 {

@@ -1,13 +1,13 @@
 <?php
-namespace Access9\Tests\Console\Command;
+namespace Access9\DbTableDump\Tests\Console\Command;
 
-use Access9\Console\Command\Dump;
+use Access9\DbTableDump\Console\Command\Dump;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class CommandTest
  *
- * @package Access9\Tests\Console\Command
+ * @package Access9\DbTableDump\Tests\Console\Command
  */
 class DumpTest extends TestCase
 {

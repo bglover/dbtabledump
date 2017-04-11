@@ -1,5 +1,5 @@
 <?php
-namespace Access9\Console\Command;
+namespace Access9\DbTableDump\Console\Command;
 
 use Symfony\Component\Console\Command\Command as sfCommand;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class ConfigCommand
  *
- * @package Access9\Console\Command
+ * @package Access9\DbTableDump\Console\Command
  */
 class ConfigGetCommand extends sfCommand
 {
@@ -41,7 +41,7 @@ class ConfigGetCommand extends sfCommand
     {
         $out = [];
 
-        /** @var \Access9\Config $config */
+        /** @var \Access9\DbTableDump\Config $config */
         $config = $this->getApplication()->getConfig();
         if ($input->getOption('user')) {
             $out[] = 'user: ' . $config->user;

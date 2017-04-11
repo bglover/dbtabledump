@@ -1,16 +1,16 @@
 <?php
-namespace Access9\Tests\Console\Command;
+namespace Access9\DbTableDump\Tests\Console\Command;
 
-use Access9\Config;
-use Access9\Console\Application;
-use Access9\Console\Command\ConfigGetCommand;
+use Access9\DbTableDump\Config;
+use Access9\DbTableDump\Console\Application;
+use Access9\DbTableDump\Console\Command\ConfigGetCommand;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * Class ConfigGetCommandTest
  *
- * @package Access9\Tests\Console\Command
+ * @package Access9\DbTableDump\Tests\Console\Command
  */
 class ConfigGetCommandTest extends TestCase
 {

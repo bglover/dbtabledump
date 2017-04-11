@@ -1,7 +1,7 @@
 <?php
-namespace Access9\Console;
+namespace Access9\DbTableDump\Console;
 
-use Access9\Config;
+use Access9\DbTableDump\Config;
 use Doctrine\DBAL\DriverManager;
 use Symfony\Component\Console\Application as sfApplication;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 /**
  * Class Application
  *
- * @package Access9\Console
+ * @package Access9\DbTableDump\Console
  */
 class Application extends sfApplication
 {
@@ -60,7 +60,7 @@ class Application extends sfApplication
     }
 
     /**
-     * Returns the instance of \Access9\Config.
+     * Returns the instance of \Access9\DbTableDump\Config.
      *
      * @return Config
      */

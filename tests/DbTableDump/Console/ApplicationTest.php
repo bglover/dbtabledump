@@ -1,14 +1,14 @@
 <?php
-namespace Access9\Tests\Console;
+namespace Access9\DbTableDump\Tests\Console;
 
-use Access9\Config;
-use Access9\Console\Application;
+use Access9\DbTableDump\Config;
+use Access9\DbTableDump\Console\Application;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class ApplicationTest
  *
- * @package Access9\Tests\Console
+ * @package Access9\DbTableDump\Tests\Console
  */
 class ApplicationTest extends TestCase
 {
@@ -40,7 +40,7 @@ class ApplicationTest extends TestCase
     public function testGetConfig()
     {
         $config = $this->application->getConfig();
-        $this->assertInstanceOf('\Access9\Config', $config);
+        $this->assertInstanceOf('\Access9\DbTableDump\Config', $config);
     }
 
     public function testOverrideDefaultDefinition()

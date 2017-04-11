@@ -1,12 +1,12 @@
 <?php
-namespace Access9\Tests\Console\Command;
+namespace Access9\DbTableDump\Tests\Console\Command;
 
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class ConfigSetCommandTest
  *
- * @package Access9\Tests\Console\Command
+ * @package Access9\DbTableDump\Tests\Console\Command
  */
 class ConfigSetCommandTest extends TestCase
 {

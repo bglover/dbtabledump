@@ -1,7 +1,7 @@
 <?php
-namespace Access9\Tests;
+namespace Access9\DbTableDump\Tests;
 
-use Access9\Config;
+use Access9\DbTableDump\Config;
 use InvalidArgumentException;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
@@ -9,8 +9,8 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ConfigTest
  *
- * @package Access9\Tests\Console
- * @coversDefaultClass Access9\Config
+ * @package Access9\DbTableDump\Tests\Console
+ * @coversDefaultClass Access9\DbTableDump\Config
  */
 class ConfigTest extends TestCase
 {
@@ -43,15 +43,15 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Access9\Config::__construct
+     * @covers Access9\DbTableDump\Config::__construct
      */
     public function testConstruct()
     {
-        $this->assertInstanceOf('\Access9\Config', $this->config);
+        $this->assertInstanceOf('\Access9\DbTableDump\Config', $this->config);
     }
 
     /**
-     * @covers Access9\Config::__construct
+     * @covers Access9\DbTableDump\Config::__construct
      */
     public function testConstructWithNoConfig()
     {
@@ -97,7 +97,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Access9\Config::toArray
+     * @covers Access9\DbTableDump\Config::toArray
      */
     public function testGetConfig()
     {
@@ -113,7 +113,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Access9\Config::toArray
+     * @covers Access9\DbTableDump\Config::toArray
      */
     public function testGetConfigWithParams()
     {
@@ -132,7 +132,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Access9\Config::__set
+     * @covers Access9\DbTableDump\Config::__set
      */
     public function test__set()
     {
@@ -154,7 +154,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Access9\Config::__get
+     * @covers Access9\DbTableDump\Config::__get
      */
     public function test__get()
     {
@@ -166,7 +166,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Access9\Config::__isset
+     * @covers Access9\DbTableDump\Config::__isset
      */
     public function test__isset()
     {
@@ -180,7 +180,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Access9\Config::Save
+     * @covers Access9\DbTableDump\Config::Save
      */
     public function testSave()
     {

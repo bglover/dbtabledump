@@ -1,14 +1,14 @@
 <?php
-namespace Access9\Console\Command;
+namespace Access9\DbTableDump\Console\Command;
 
-use Access9\Writer\XmlWriter;
+use Access9\DbTableDump\Writer\XmlWriter;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class ToXmlCommand
  *
- * @package Access9\Console\Command
+ * @package Access9\DbTableDump\Console\Command
  */
 class ToXmlCommand extends Dump
 {

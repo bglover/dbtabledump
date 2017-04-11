@@ -30,7 +30,7 @@
     "bin": ["dump"],
     "autoload": {
         "psr-4": {
-            "Access9\\": "src/Access9/"
+            "Access9\\DbTableDump\\": "src/DbTableDump/"
         }
     }
 }

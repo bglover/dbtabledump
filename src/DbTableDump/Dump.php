@@ -1,5 +1,5 @@
 <?php
-namespace Access9;
+namespace Access9\DbTableDump;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 /**
  * Class Dump
  *
- * @package Access9
+ * @package Access9\DbTableDump
  */
 class Dump
 {

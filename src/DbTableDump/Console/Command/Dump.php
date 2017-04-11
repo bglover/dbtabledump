@@ -1,5 +1,5 @@
 <?php
-namespace Access9\Console\Command;
+namespace Access9\DbTableDump\Console\Command;
 
 use Symfony\Component\Console\Command\Command as sfCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 /**
  * Class Command
  *
- * @package Access9\Console
+ * @package Access9\DbTableDump\Console
  */
 class Dump extends sfCommand
 {

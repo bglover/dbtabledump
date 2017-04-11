@@ -1,13 +1,13 @@
 <?php
-namespace Access9\Tests\Writer;
+namespace Access9\DbTableDump\Tests\Writer;
 
-use Access9\Writer\XmlWriter;
+use Access9\DbTableDump\Writer\XmlWriter;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class XmlWriterTest
  *
- * @package Access9\Tests\Writer
+ * @package Access9\DbTableDump\Tests\Writer
  */
 class XmlWriterTest extends TestCase
 {

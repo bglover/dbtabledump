@@ -1,10 +1,10 @@
 <?php
-namespace Access9\Writer;
+namespace Access9\DbTableDump\Writer;
 
 /**
  * Class XmlWriter
  *
- * @package Access9\Writer
+ * @package Access9\DbTableDump\Writer
  */
 class XmlWriter implements WriterInterface
 {

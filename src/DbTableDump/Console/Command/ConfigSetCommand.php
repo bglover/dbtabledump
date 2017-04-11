@@ -1,5 +1,5 @@
 <?php
-namespace Access9\Console\Command;
+namespace Access9\DbTableDump\Console\Command;
 
 use Symfony\Component\Console\Command\Command as sfCommand;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class ConfigCommand
  *
- * @package Access9\Console\Command
+ * @package Access9\DbTableDump\Console\Command
  */
 class ConfigSetCommand extends sfCommand
 {
@@ -88,13 +88,13 @@ class ConfigSetCommand extends sfCommand
 
     /**
      * @param array $options
-     * @throws \Access9\FileNotWritableException
+     * @throws \Access9\DbTableDump\FileNotWritableException
      * @throws \InvalidArgumentException
      */
     private function updateConfig(array $options)
     {
 
-        /** @var \Access9\Config $config */
+        /** @var \Access9\DbTableDump\Config $config */
         $config = $this->getApplication()->getConfig();
 
         if ($options['user']) {

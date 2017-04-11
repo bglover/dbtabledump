@@ -1,9 +1,9 @@
 <?php
-namespace Access9\Tests\Console\Command;
+namespace Access9\DbTableDump\Tests\Console\Command;
 
-use Access9\Config;
-use Access9\Console\Application;
-use Access9\Console\Command\ToYamlCommand;
+use Access9\DbTableDump\Config;
+use Access9\DbTableDump\Console\Application;
+use Access9\DbTableDump\Console\Command\ToYamlCommand;
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Types\Type;
@@ -13,7 +13,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 /**
  * Class ToYamlCommandTest
  *
- * @package Access9\Tests\Console\Command
+ * @package Access9\DbTableDump\Tests\Console\Command
  */
 class ToYamlCommandTest extends TestCase
 {

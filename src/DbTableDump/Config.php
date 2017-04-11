@@ -1,5 +1,5 @@
 <?php
-namespace Access9;
+namespace Access9\DbTableDump;
 
 use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
@@ -7,7 +7,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Class Config
  *
- * @package Access9\Console
+ * @package Access9\DbTableDump\Console
  */
 class Config
 {

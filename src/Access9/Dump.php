@@ -6,11 +6,11 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
- * Class DbTableDump
+ * Class Dump
  *
  * @package Access9
  */
-class DbTableDump
+class Dump
 {
     /**
      * Main runner to keep dump simple.

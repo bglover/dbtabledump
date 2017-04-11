@@ -13,7 +13,7 @@ use Symfony\Component\Console\Input\InputDefinition;
  */
 class Application extends sfApplication
 {
-    const APP_NAME    = 'DbTableDump';
+    const APP_NAME    = 'Dump';
     const APP_VERSION = '0.10';
 
     /**

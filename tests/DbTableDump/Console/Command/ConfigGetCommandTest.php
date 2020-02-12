@@ -21,7 +21,7 @@ class ConfigGetCommandTest extends TestCase
      */
     private $cmdTester;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $application = new Application();
         $application->setConfig(new Config());
@@ -33,7 +33,7 @@ class ConfigGetCommandTest extends TestCase
         );
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->cmdTester = null;
     }

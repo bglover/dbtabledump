@@ -17,13 +17,13 @@ class ApplicationTest extends TestCase
      */
     private $application;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->application = new Application();
         $this->application->setConfig(new Config());
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->application = null;
     }

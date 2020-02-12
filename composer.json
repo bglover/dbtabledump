@@ -10,17 +10,19 @@
         }
     ],
     "require": {
-        "php": ">=5.5",
-        "symfony/config": "~3.0|~4.0",
-        "symfony/console": "~3.0|~4.0",
-        "symfony/dependency-injection": "~3.0|~4.0",
-        "symfony/yaml": "~3.0|~4.0",
-        "doctrine/dbal": "~2.5"
+        "php": ">=7.1",
+        "symfony/config": "~4.3",
+        "symfony/console": "~4.3",
+        "symfony/dependency-injection": "~4.3",
+        "symfony/yaml": "~4.3",
+        "doctrine/dbal": "~2.8",
+        "friendsofphp/php-cs-fixer": "^2.16"
     },
     "require-dev": {
         "ext-reflection": "*",
-        "phpunit/phpunit": "~6",
-        "mikey179/vfsStream": "~1"
+        "ext-pdo_sqlite": "*",
+        "phpunit/phpunit": "~8",
+        "mikey179/vfsstream": "~1"
     },
     "extra": {
         "branch-alias": {

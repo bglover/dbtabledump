@@ -24,7 +24,7 @@ class ConfigTest extends TestCase
     /**
      * @inheritdoc
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->configPath = __DIR__
             . DIRECTORY_SEPARATOR . '..'
@@ -37,7 +37,7 @@ class ConfigTest extends TestCase
     /**
      * @inheritdoc
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->config = null;
     }
@@ -144,12 +144,10 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, $prop->getValue($this->config)['user']);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Attempting to set a non-existent configuration key
-     */
     public function test__setThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Attempting to set a non-existent configuration key');
         $this->config->randomunknownprop = 'this is totally going to throw an exception';
     }
 
@@ -191,7 +189,8 @@ class ConfigTest extends TestCase
         vfsStream::setup('config');
         $dir = vfsStream::copyFromFileSystem(dirname($prop->getValue($this->config)));
 
-        $file = $dir->getChild('config.yml')->url();
+
+        $file = $dir->getChild('config_test.yml')->url();
         $prop->setValue($this->config, $file);
 
         $this->config->user     = 'DRUGS';

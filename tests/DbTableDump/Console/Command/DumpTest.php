@@ -16,7 +16,7 @@ class DumpTest extends TestCase
      */
     private $command;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->command = new Dump('dump');
         $ref           = new \ReflectionClass($this->command);
@@ -25,7 +25,7 @@ class DumpTest extends TestCase
         $method->invoke($this->command);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->command = null;
     }

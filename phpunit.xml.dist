@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.1/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.5/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          verbose="true"
-         color="true">
+         colors="true">
     <php>
         <const name="PHPUNIT" value="true"/>
     </php>
-    <testsuite>
-        <directory suffix="Test.php">tests</directory>
-    </testsuite>
+    <testsuites>
+        <testsuite name="default">
+            <directory suffix="Test.php">tests</directory>
+        </testsuite>
+    </testsuites>
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">

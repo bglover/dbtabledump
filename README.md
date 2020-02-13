@@ -10,7 +10,7 @@ DbTableDump is a PHP CLI tool to dump database tables to various formats.
 
 ### Prerequisites
 
-DbTableDump requires PHP 7.1 or higher. A database backend is also required - Supported database drivers are [here](#user-content-supported-database-drivers).
+DbTableDump requires PHP 7.3 or higher. A database backend is also required - Supported database drivers are [here](#user-content-supported-database-drivers).
 
 Some Linux distributions require you to install the JSON and/or DOM extensions separately.
 

@@ -68,5 +68,7 @@ class ConfigGetCommand extends sfCommand
         } else {
             $output->writeln($config->__toString());
         }
+
+        return 0;
     }
 }

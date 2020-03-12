@@ -29,5 +29,7 @@ class ToYamlCommand extends Dump
     {
         $results = $this->toArray($input);
         $output->writeln(Yaml::dump($results, 4, 2));
+
+        return 0;
     }
 }

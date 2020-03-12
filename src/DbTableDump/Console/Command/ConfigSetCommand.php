@@ -84,6 +84,8 @@ class ConfigSetCommand extends sfCommand
         $options = $input->getOptions();
         $this->validateOptions($options);
         $this->updateConfig($options);
+
+        return 0;
     }
 
     /**

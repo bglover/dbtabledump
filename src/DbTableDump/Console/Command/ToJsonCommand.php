@@ -71,5 +71,7 @@ class ToJsonCommand extends Dump
         }
         $results = $this->toArray($input);
         $output->writeln(json_encode($results, $bitmask, 9999));
+
+        return 0;
     }
 }

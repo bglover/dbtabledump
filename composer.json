@@ -15,14 +15,14 @@
         "symfony/console": "^4.4|^5.0",
         "symfony/dependency-injection": "^4.4|^5.0",
         "symfony/yaml": "^4.4|^5.0",
-        "doctrine/dbal": "~2.8",
-        "friendsofphp/php-cs-fixer": "^2.16"
+        "doctrine/dbal": "~2.8"
     },
     "require-dev": {
         "ext-reflection": "*",
         "ext-pdo_sqlite": "*",
         "phpunit/phpunit": "~8",
-        "mikey179/vfsstream": "~1"
+        "mikey179/vfsstream": "~1",
+        "friendsofphp/php-cs-fixer": "^2.16"
     },
     "extra": {
         "branch-alias": {

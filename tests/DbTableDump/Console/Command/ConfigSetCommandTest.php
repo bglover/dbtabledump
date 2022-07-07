@@ -4,14 +4,15 @@ namespace Access9\DbTableDump\Tests\Console\Command;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ConfigSetCommandTest
- *
- * @package Access9\DbTableDump\Tests\Console\Command
+ * @coversDefaultClass \Access9\DbTableDump\Console\Command\ConfigSetCommand
  */
 class ConfigSetCommandTest extends TestCase
 {
-    public function testExecute()
+    /**
+     * @covers ::execute
+     */
+    public function testExecute(): void
     {
-        $this->markTestIncomplete('todo');
+        $this->markTestIncomplete();
     }
 }

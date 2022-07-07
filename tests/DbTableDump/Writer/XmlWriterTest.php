@@ -5,13 +5,14 @@ use Access9\DbTableDump\Writer\XmlWriter;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class XmlWriterTest
- *
- * @package Access9\DbTableDump\Tests\Writer
+ * @coversDefaultClass \Access9\DbTableDump\Writer\XmlWriter
  */
 class XmlWriterTest extends TestCase
 {
-    public function testFormat()
+    /**
+     * @covers ::format
+     */
+    public function testFormat(): void
     {
         $writer   = new XmlWriter($this->getArray());
         $expected = '<?xml version="1.0" encoding="utf-8"?>
@@ -33,6 +34,9 @@ class XmlWriterTest extends TestCase
         $this->assertSame($expected, $writer->format());
     }
 
+    /**
+     * @covers ::format
+     */
     public function testFormatMultipleTables()
     {
         $writer   = new XmlWriter($this->getArray(true));
@@ -81,7 +85,7 @@ class XmlWriterTest extends TestCase
      * @param bool $multi
      * @return array
      */
-    private function getArray($multi = false)
+    private function getArray(bool $multi = false): array
     {
         $return = [
             'store' => [

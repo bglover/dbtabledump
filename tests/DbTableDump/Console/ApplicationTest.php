@@ -4,11 +4,10 @@ namespace Access9\DbTableDump\Tests\Console;
 use Access9\DbTableDump\Config;
 use Access9\DbTableDump\Console\Application;
 use PHPUnit\Framework\TestCase;
+use Doctrine\DBAL\Connection;
 
 /**
- * Class ApplicationTest
- *
- * @package Access9\DbTableDump\Tests\Console
+ * @coversDefaultClass \Access9\DbTableDump\Console\Application
  */
 class ApplicationTest extends TestCase
 {
@@ -28,22 +27,31 @@ class ApplicationTest extends TestCase
         $this->application = null;
     }
 
-    public function testGetConnection()
+    /**
+     * @covers ::getConnection
+     */
+    public function testGetConnection(): void
     {
         $connection = $this->application->getConnection();
-        $this->assertInstanceOf('\Doctrine\DBAL\Connection', $connection);
+        $this->assertInstanceOf(Connection::class, $connection);
 
         // Ensure the same instance is returned.
         $this->assertSame($this->application->getConnection(), $connection);
     }
 
-    public function testGetConfig()
+    /**
+     * @covers ::getConfig
+     */
+    public function testGetConfig(): void
     {
         $config = $this->application->getConfig();
-        $this->assertInstanceOf('\Access9\DbTableDump\Config', $config);
+        $this->assertInstanceOf(Config::class, $config);
     }
 
-    public function testOverrideDefaultDefinition()
+    /**
+     * @covers ::getDefinition
+     */
+    public function testOverrideDefaultDefinition(): void
     {
         $meth = new \ReflectionMethod($this->application, 'overrideDefaultDefinition');
         $meth->setAccessible(true);

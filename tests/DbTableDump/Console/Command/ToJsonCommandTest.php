@@ -11,16 +11,15 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * Class ToJsonCommandTest
- *
- * @package Access9\DbTableDump\Tests\Console\Command
+ * @coversDefaultClass \Access9\DbTableDump\Console\Command\ToJsonCommand
  */
 class ToJsonCommandTest extends TestCase
 {
     /**
      * Basic test of ToJsonCommand::execute
+     * @covers ::execute
      */
-    public function testExecute()
+    public function testExecute(): void
     {
         $application = $this->getApplication();
         $application->add(new ToJsonCommand());
@@ -42,7 +41,7 @@ class ToJsonCommandTest extends TestCase
      *
      * @return Application
      */
-    private function getApplication()
+    private function getApplication(): Application
     {
         $application = new Application();
         $application->setConfig(new Config());
@@ -58,7 +57,7 @@ class ToJsonCommandTest extends TestCase
      * @param Application $application
      * @throws \Doctrine\DBAL\DBALException
      */
-    private function createTestDb(Application $application)
+    private function createTestDb(Application $application): void
     {
         $db = $application->getConnection();
         $db->getSchemaManager()->createTable(new Table(

@@ -2,15 +2,12 @@
 namespace Access9\DbTableDump\Tests;
 
 use Access9\DbTableDump\Config;
-use InvalidArgumentException;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ConfigTest
- *
  * @package Access9\DbTableDump\Tests\Console
- * @coversDefaultClass Access9\DbTableDump\Config
+ * @coversDefaultClass \Access9\DbTableDump\Config
  */
 class ConfigTest extends TestCase
 {
@@ -19,18 +16,11 @@ class ConfigTest extends TestCase
      */
     private $config;
 
-    private $configPath;
-
     /**
      * @inheritdoc
      */
     protected function setUp(): void
     {
-        $this->configPath = __DIR__
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . 'config';
-
         $this->config = new Config();
     }
 
@@ -43,63 +33,17 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Access9\DbTableDump\Config::__construct
+     * @covers ::__construct
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
-        $this->assertInstanceOf('\Access9\DbTableDump\Config', $this->config);
+        $this->assertInstanceOf(Config::class, $this->config);
     }
 
     /**
-     * @covers Access9\DbTableDump\Config::__construct
+     * @covers ::toArray
      */
-    public function testConstructWithNoConfig()
-    {
-        $this->markTestIncomplete('todo');
-    }
-
-    /**
-     * Ensure the $config property is set properly.
-     */
-    public function testConfigPropertyIsSetAfterConstruction()
-    {
-        $prop = (new \ReflectionClass($this->config))->getProperty('config');
-        $prop->setAccessible(true);
-
-        $expected = [
-            'user'     => null,
-            'password' => null,
-            'memory'   => true,
-            'dbname'   => 'phpunit',
-            'driver'   => 'pdo_sqlite',
-            'host'     => null
-        ];
-        $this->assertSame($expected, $prop->getValue($this->config));
-    }
-
-    /**
-     * Ensure the $configFile property is set properly.
-     */
-    public function testConfigFilePropertyIsSetAfterConstruction()
-    {
-        $prop = (new \ReflectionClass($this->config))->getProperty('configFile');
-        $prop->setAccessible(true);
-
-        $actual   = realpath($prop->getValue($this->config));
-        $expected = realpath(
-            __DIR__
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . 'config'
-            . DIRECTORY_SEPARATOR . 'config_test.yml'
-        );
-        $this->assertSame($expected, $actual);
-    }
-
-    /**
-     * @covers Access9\DbTableDump\Config::toArray
-     */
-    public function testGetConfig()
+    public function testGetConfig(): void
     {
         $expected = [
             'user'     => null,
@@ -113,9 +57,9 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Access9\DbTableDump\Config::toArray
+     * @covers ::toArray
      */
-    public function testGetConfigWithParams()
+    public function testGetConfigWithParams(): void
     {
         $expected = [
             'user'     => 'user-param',
@@ -132,9 +76,9 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Access9\DbTableDump\Config::__set
+     * @covers ::__set
      */
-    public function test__set()
+    public function test__set(): void
     {
         $expected           = 'Boogers';
         $this->config->user = $expected;
@@ -144,7 +88,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, $prop->getValue($this->config)['user']);
     }
 
-    public function test__setThrowsException()
+    public function test__setThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Attempting to set a non-existent configuration key');
@@ -152,9 +96,9 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Access9\DbTableDump\Config::__get
+     * @covers ::__get
      */
-    public function test__get()
+    public function test__get(): void
     {
         $this->assertNull($this->config->user);
         $this->assertNull($this->config->password);
@@ -164,9 +108,9 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Access9\DbTableDump\Config::__isset
+     * @covers ::__isset
      */
-    public function test__isset()
+    public function test__isset(): void
     {
         // These two are false because the config for phpunit doesn't define these.
         $this->assertFalse(isset($this->config->user));
@@ -178,9 +122,9 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Access9\DbTableDump\Config::Save
+     * @covers ::save
      */
-    public function testSave()
+    public function testSave(): void
     {
         $ref  = new \ReflectionClass($this->config);
         $prop = $ref->getProperty('configFile');

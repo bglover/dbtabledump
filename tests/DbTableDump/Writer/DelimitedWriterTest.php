@@ -5,13 +5,14 @@ use Access9\DbTableDump\Writer\DelimitedWriter;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class DelimitedWriterTest
- *
- * @package Access9\DbTableDump\Tests\Writer
+ * @coversDefaultClass \Access9\DbTableDump\Writer\DelimitedWriter
  */
 class DelimitedWriterTest extends TestCase
 {
-    public function testFormat()
+    /**
+     * @covers ::format
+     */
+    public function testFormat(): void
     {
         $writer   = new DelimitedWriter($this->getArray(), '|');
         $expected = [
@@ -24,7 +25,10 @@ class DelimitedWriterTest extends TestCase
         $this->assertSame($expected, $writer->format());
     }
 
-    public function testFormatQuoted()
+    /**
+     * @covers ::format
+     */
+    public function testFormatQuoted(): void
     {
         $writer   = new DelimitedWriter($this->getArray(), '|', true);
         $expected = [
@@ -37,7 +41,10 @@ class DelimitedWriterTest extends TestCase
         $this->assertSame($expected, $writer->format());
     }
 
-    public function testFormatWithLiteralTab()
+    /**
+     * @covers ::format
+     */
+    public function testFormatWithLiteralTab(): void
     {
         $writer   = new DelimitedWriter($this->getArray(), '\t');
         $expected = [
@@ -50,7 +57,10 @@ class DelimitedWriterTest extends TestCase
         $this->assertSame($expected, $writer->format());
     }
 
-    public function testFormatWithLiteralTabQuoted()
+    /**
+     * @covers ::format
+     */
+    public function testFormatWithLiteralTabQuoted(): void
     {
         $writer   = new DelimitedWriter($this->getArray(), '\t', true);
         $expected = [
@@ -66,7 +76,7 @@ class DelimitedWriterTest extends TestCase
     /**
      * @return array
      */
-    private function getArray()
+    private function getArray(): array
     {
         return [
             'store' => [

@@ -5,9 +5,7 @@ use Access9\DbTableDump\Console\Command\Dump;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class CommandTest
- *
- * @package Access9\DbTableDump\Tests\Console\Command
+ * @coversDefaultClass \Access9\DbTableDump\Console\Command\Dump
  */
 class DumpTest extends TestCase
 {
@@ -30,7 +28,10 @@ class DumpTest extends TestCase
         $this->command = null;
     }
 
-    public function testArgumentDefinition()
+    /**
+     * @covers ::getDefinition
+     */
+    public function testArgumentDefinition(): void
     {
         $def       = $this->command->getDefinition();
         $arguments = $def->getArguments();
@@ -43,7 +44,10 @@ class DumpTest extends TestCase
         $this->assertTrue($arg->isRequired());
     }
 
-    public function testCommandHasLimitOption()
+    /**
+     * @covers ::getDefinition
+     */
+    public function testCommandHasLimitOption(): void
     {
         $def = $this->command->getDefinition();
         $this->assertTrue($def->hasOption('limit'));
@@ -59,7 +63,10 @@ class DumpTest extends TestCase
         $this->assertFalse($limit->isValueOptional());
     }
 
-    public function testCommandHasUserOption()
+    /**
+     * @covers ::getDefinition
+     */
+    public function testCommandHasUserOption(): void
     {
         $def = $this->command->getDefinition();
         $this->assertTrue($def->hasOption('user'));
@@ -75,7 +82,10 @@ class DumpTest extends TestCase
         $this->assertFalse($user->isValueOptional());
     }
 
-    public function testCommandHasPasswordOption()
+    /**
+     * @covers ::getDefinition
+     */
+    public function testCommandHasPasswordOption(): void
     {
         $def = $this->command->getDefinition();
         $this->assertTrue($def->hasOption('password'));
@@ -91,7 +101,10 @@ class DumpTest extends TestCase
         $this->assertFalse($password->isValueOptional());
     }
 
-    public function testCommandHasDbnameOption()
+    /**
+     * @covers ::getDefinition
+     */
+    public function testCommandHasDbnameOption(): void
     {
         $def = $this->command->getDefinition();
         $this->assertTrue($def->hasOption('dbname'));
@@ -107,7 +120,10 @@ class DumpTest extends TestCase
         $this->assertFalse($dbname->isValueOptional());
     }
 
-    public function testCommandHaHostOption()
+    /**
+     * @covers ::getDefinition
+     */
+    public function testCommandHaHostOption(): void
     {
         $def = $this->command->getDefinition();
         $this->assertTrue($def->hasOption('host'));
@@ -123,13 +139,19 @@ class DumpTest extends TestCase
         $this->assertFalse($dbname->isValueOptional());
     }
 
-    public function testToArray()
+    /**
+     * @covers ::toArray
+     */
+    public function testToArray(): void
     {
-        $this->markTestIncomplete('todo');
+        $this->markTestIncomplete();
     }
 
-    public function testGetDb()
+    /**
+     * @covers ::getDb
+     */
+    public function testGetDb(): void
     {
-        $this->markTestIncomplete('todo');
+        $this->markTestIncomplete();
     }
 }

@@ -10,19 +10,19 @@
         }
     ],
     "require": {
-        "php": ">=7.3",
-        "symfony/config": "^4.4|^5.0",
-        "symfony/console": "^4.4|^5.0",
-        "symfony/dependency-injection": "^4.4|^5.0",
-        "symfony/yaml": "^4.4|^5.0",
-        "doctrine/dbal": "~2.8"
+        "php": ">=7.4",
+        "symfony/config": "^4.4|^5.0|^6.0",
+        "symfony/console": "^4.4|^5.0|^6.0",
+        "symfony/dependency-injection": "^4.4|^5.0|^6.0",
+        "symfony/yaml": "^4.4|^5.0|^6.0",
+        "doctrine/dbal": "^2.8"
     },
     "require-dev": {
         "ext-reflection": "*",
         "ext-pdo_sqlite": "*",
-        "phpunit/phpunit": "~8",
+        "phpunit/phpunit": "^9.5",
         "mikey179/vfsstream": "~1",
-        "friendsofphp/php-cs-fixer": "^2.16"
+        "friendsofphp/php-cs-fixer": "^3.0"
     },
     "extra": {
         "branch-alias": {
@@ -33,6 +33,11 @@
     "autoload": {
         "psr-4": {
             "Access9\\DbTableDump\\": "src/DbTableDump/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Access9\\DbTableDump\\Tests\\": "tests/DbTableDump/"
         }
     }
 }

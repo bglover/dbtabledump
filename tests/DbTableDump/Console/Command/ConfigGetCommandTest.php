@@ -8,9 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * Class ConfigGetCommandTest
- *
- * @package Access9\DbTableDump\Tests\Console\Command
+ * @coversDefaultClass \Access9\DbTableDump\Console\Command\ConfigGetCommand
  */
 class ConfigGetCommandTest extends TestCase
 {
@@ -39,9 +37,9 @@ class ConfigGetCommandTest extends TestCase
     }
 
     /**
-     * Basic test of ConfigGetCommand::execute
+     * @covers ::execute
      */
-    public function testExecute()
+    public function testExecute(): void
     {
         $this->cmdTester->execute(['command' => self::COMMAND]);
 
@@ -56,9 +54,9 @@ class ConfigGetCommandTest extends TestCase
     }
 
     /**
-     * Basic test of ConfigGetCommand::execute with parameters
+     * @covers ::execute
      */
-    public function testExecuteWithParams()
+    public function testExecuteWithParams(): void
     {
         $expected = [
             '--user'     => 'user:',

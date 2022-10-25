@@ -7,6 +7,7 @@ use Access9\DbTableDump\Console\Command\ToJsonCommand;
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -55,7 +56,6 @@ class ToJsonCommandTest extends TestCase
      * Create the test database.
      *
      * @param Application $application
-     * @throws \Doctrine\DBAL\DBALException
      */
     private function createTestDb(Application $application): void
     {
@@ -63,8 +63,8 @@ class ToJsonCommandTest extends TestCase
         $db->getSchemaManager()->createTable(new Table(
             'phpunit',
             [
-                new Column('id', Type::getType(Type::INTEGER)),
-                new Column('name', Type::getType(Type::TEXT))
+                new Column('id', Type::getType(Types::INTEGER)),
+                new Column('name', Type::getType(Types::TEXT))
             ]
         ));
         $db->insert('phpunit', ['id' => 1, 'name' => 'sweet']);

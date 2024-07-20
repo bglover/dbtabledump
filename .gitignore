@@ -3,7 +3,6 @@ vendor/
 config/config.yml
 composer.phar
 coverage/
-composer.lock
 coverage.xml
 .phpunit.result.cache
 .php-cs-fixer.cache

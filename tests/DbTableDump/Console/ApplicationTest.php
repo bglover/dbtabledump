@@ -3,8 +3,8 @@ namespace Access9\DbTableDump\Tests\Console;
 
 use Access9\DbTableDump\Config;
 use Access9\DbTableDump\Console\Application;
-use PHPUnit\Framework\TestCase;
 use Doctrine\DBAL\Connection;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @coversDefaultClass \Access9\DbTableDump\Console\Application

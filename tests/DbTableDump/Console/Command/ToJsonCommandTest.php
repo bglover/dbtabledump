@@ -19,6 +19,8 @@ class ToJsonCommandTest extends TestCase
     /**
      * Basic test of ToJsonCommand::execute
      * @covers ::execute
+     *
+     * @throws \Doctrine\DBAL\Exception
      */
     public function testExecute(): void
     {
@@ -32,7 +34,7 @@ class ToJsonCommandTest extends TestCase
             'tables'  => ['phpunit']
         ]);
 
-        $expected = '{"phpunit":[{"id":"1","name":"sweet"},{"id":"2","name":"cheeks"}]}';
+        $expected = '{"phpunit":[{"id":1,"name":"sweet"},{"id":2,"name":"cheeks"}]}';
         $display  = $commandTester->getDisplay(true);
         $this->assertSame($expected, trim($display));
     }
@@ -40,6 +42,7 @@ class ToJsonCommandTest extends TestCase
     /**
      * Returns an instance of Application.
      *
+     * @throws \Doctrine\DBAL\Exception
      * @return Application
      */
     private function getApplication(): Application
@@ -56,11 +59,12 @@ class ToJsonCommandTest extends TestCase
      * Create the test database.
      *
      * @param Application $application
+     * @throws \Doctrine\DBAL\Exception
      */
     private function createTestDb(Application $application): void
     {
         $db = $application->getConnection();
-        $db->getSchemaManager()->createTable(new Table(
+        $db->createSchemaManager()->createTable(new Table(
             'phpunit',
             [
                 new Column('id', Type::getType(Types::INTEGER)),

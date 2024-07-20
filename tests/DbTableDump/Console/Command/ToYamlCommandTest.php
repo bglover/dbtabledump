@@ -31,7 +31,16 @@ class ToYamlCommandTest extends TestCase
             'tables'  => ['phpunit']
         ]);
 
-        $expected = "phpunit:\n  -\n    id: '1'\n    name: sweet\n  -\n    id: '2'\n    name: cheeks";
+        $expected = <<<YAML
+            phpunit:
+              -
+                id: 1
+                name: sweet
+              -
+                id: 2
+                name: cheeks
+            YAML;
+
         $display  = $commandTester->getDisplay(true);
         $this->assertSame($expected, trim($display));
     }
@@ -39,6 +48,7 @@ class ToYamlCommandTest extends TestCase
     /**
      * Returns an instance of Application.
      *
+     * @throws \Doctrine\DBAL\Exception
      * @return Application
      */
     private function getApplication(): Application
@@ -55,11 +65,12 @@ class ToYamlCommandTest extends TestCase
      * Create the test database.
      *
      * @param Application $application
+     * @throws \Doctrine\DBAL\Exception
      */
     private function createTestDb(Application $application): void
     {
         $db = $application->getConnection();
-        $db->getSchemaManager()->createTable(new Table(
+        $db->createSchemaManager()->createTable(new Table(
             'phpunit',
             [
                 new Column('id', Type::getType(Types::INTEGER)),

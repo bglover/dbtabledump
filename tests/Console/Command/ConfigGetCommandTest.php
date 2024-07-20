@@ -22,7 +22,7 @@ class ConfigGetCommandTest extends TestCase
     protected function setUp(): void
     {
         $application = new Application();
-        $application->setConfig(new Config(dirname(__DIR__, 4) . '/config'));
+        $application->setConfig(new Config(dirname(__DIR__, 3) . '/config'));
         $application->setAutoExit(false);
         $application->add(new ConfigGetCommand());
 

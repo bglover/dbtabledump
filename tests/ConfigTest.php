@@ -18,7 +18,7 @@ class ConfigTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->config = new Config(dirname(__DIR__, 2) . '/config');
+        $this->config = new Config(dirname(__DIR__, 1) . '/config');
     }
 
     /**

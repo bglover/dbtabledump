@@ -19,7 +19,7 @@ class ApplicationTest extends TestCase
     protected function setUp(): void
     {
         $this->application = new Application();
-        $this->application->setConfig(new Config(dirname(__DIR__, 3) . '/config'));
+        $this->application->setConfig(new Config(dirname(__DIR__, 2) . '/config'));
     }
 
     protected function tearDown(): void

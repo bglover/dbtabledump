@@ -11,12 +11,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "Access9\\DbTableDump\\": "src/DbTableDump/"
+            "Access9\\DbTableDump\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Access9\\DbTableDump\\Tests\\": "tests/DbTableDump/"
+            "Access9\\DbTableDump\\Tests\\": "tests/"
         }
     },
     "bin": ["dump"],

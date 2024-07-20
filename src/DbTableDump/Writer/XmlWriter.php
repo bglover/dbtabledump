@@ -25,6 +25,7 @@ class XmlWriter implements WriterInterface
      * Format the data.
      *
      * @return string
+     * @throws \DOMException
      */
     public function format()
     {
@@ -39,7 +40,7 @@ class XmlWriter implements WriterInterface
                         $name = str_replace(' ', '_', $name);
                     }
 
-                    $column = $xml->createElement($name, $value);
+                    $column = $xml->createElement($name, $value ?? 'NULL');
                     $row->appendChild($column);
                     $column = null;
                 }

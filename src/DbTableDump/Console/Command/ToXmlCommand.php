@@ -33,5 +33,7 @@ class ToXmlCommand extends Dump
         $results = $this->toArray($input);
         $writer  = new XmlWriter($results);
         $output->writeln($writer->format());
+
+        return 0;
     }
 }

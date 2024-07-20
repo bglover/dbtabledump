@@ -28,6 +28,14 @@ class ConfigSetCommand extends sfCommand
         'sqlanywhere',
     ];
 
+    private const REQUIRED_OPTIONS = [
+        'user',
+        'password',
+        'host',
+        'dbname',
+        'driver',
+    ];
+
     /**
      * Common configuration arguments.
      */
@@ -131,8 +139,8 @@ class ConfigSetCommand extends sfCommand
      */
     private function validateOptions(array $options): void
     {
-        foreach ($options as $key => $val) {
-            if (empty($val)) {
+        foreach (self::REQUIRED_OPTIONS as $key) {
+            if (!array_key_exists($key, $options) || empty($options[$key])) {
                 throw new InvalidArgumentException("The '$key' option is required.");
             }
         }

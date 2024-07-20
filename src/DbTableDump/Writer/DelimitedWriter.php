@@ -1,50 +1,28 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump\Writer;
 
 /**
- * Class DelimitedWriter
- *
  * @package Access9\DbTableDump\Writer
  */
 class DelimitedWriter implements WriterInterface
 {
-    const QUOTE = '"';
+    private const QUOTE = '"';
 
-    /**
-     * @var array
-     */
-    private $data;
+    private array $data;
+    private string $delimiter;
+    private bool $quote;
 
-    /**
-     * @var string
-     */
-    private $delimiter;
-
-    /**
-     * @var bool
-     */
-    private $quote;
-
-    /**
-     * @param array  $data
-     * @param string $delimiter
-     * @param bool   $quote
-     */
-    public function __construct(array $data, $delimiter, $quote = false)
+    public function __construct(array $data, string $delimiter, bool $quote = false)
     {
         $this->data      = $data;
         $this->delimiter = $this->convertLiteralTab($delimiter);
         $this->quote     = $quote;
     }
 
-    /**
-     * @return array
-     */
-    public function format()
+    public function format(): array
     {
         $data = [];
         foreach ($this->data as $table => $rows) {
-            /** @noinspection UnSafeIsSetOverArrayInspection */
             if (!isset($data[$table])) {
                 $data[$table] = '';
             }
@@ -71,11 +49,8 @@ class DelimitedWriter implements WriterInterface
 
     /**
      * Return the formatted headers.
-     *
-     * @param array $headers
-     * @return string
      */
-    protected function getHeader(array $headers)
+    protected function getHeader(array $headers): string
     {
         if ($this->quote) {
             $headers = $this->quoteFields($headers);
@@ -86,11 +61,8 @@ class DelimitedWriter implements WriterInterface
 
     /**
      * Surrounds the values in $fields with double quotes.
-     *
-     * @param array $fields
-     * @return array
      */
-    protected function quoteFields(array $fields)
+    protected function quoteFields(array $fields): array
     {
         foreach ($fields as &$field) {
             $field = self::QUOTE . $field . self::QUOTE;
@@ -101,11 +73,8 @@ class DelimitedWriter implements WriterInterface
 
     /**
      * Convert literal tab "\t" to it real value.
-     *
-     * @param string $delimiter
-     * @return string
      */
-    protected function convertLiteralTab($delimiter)
+    protected function convertLiteralTab(string $delimiter): string
     {
         if ($delimiter === '\t') {
             $delimiter = "\t";

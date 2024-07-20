@@ -1,6 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump\Console\Command;
 
+use Access9\DbTableDump\Console\Application;
+use Doctrine\DBAL\Connection;
 use Symfony\Component\Console\Command\Command as sfCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -8,21 +10,17 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class Command
- *
  * @package Access9\DbTableDump\Console
+ * @method Application getApplication
  */
 class Dump extends sfCommand
 {
-    /**
-     * @var \Doctrine\DBAL\Connection
-     */
-    protected $db;
+    protected ?Connection $db = null;
 
     /**
      * Common configuration arguments.
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDefinition(
             new InputDefinition([
@@ -74,10 +72,9 @@ class Dump extends sfCommand
     /**
      * Transform the table output to an array.
      *
-     * @param InputInterface $input
-     * @return array
+     * @throws \Doctrine\DBAL\Exception
      */
-    protected function toArray(InputInterface $input)
+    protected function toArray(InputInterface $input): array
     {
         // Array to hold the result set.
         $results = [];
@@ -90,7 +87,7 @@ class Dump extends sfCommand
         );
 
         // Get the query builder and begin the select.
-        $qb = $db->createQueryBuilder()->select('*');
+        $qb = $db?->createQueryBuilder()->select('*');
 
         if ($input->getOption('where')) {
             $qb->where($input->getOption('where'));
@@ -104,8 +101,7 @@ class Dump extends sfCommand
             $tableBuilder    = clone $qb;
             $results[$table] = $tableBuilder
                 ->from($table)
-                ->execute()
-                ->fetchAll();
+                ->fetchAllAssociative();
         }
 
         return $results;
@@ -114,19 +110,17 @@ class Dump extends sfCommand
     /**
      * Returns an instance of \Doctrine\DBAL\Connection.
      *
-     * @param string|null $user
-     * @param string|null $password
-     * @param string|null $host
-     * @param string|null $dbname
-     * @return \Doctrine\DBAL\Connection
+     * @throws \Doctrine\DBAL\Exception
      */
-    private function getDb($user = null, $password = null, $host = null, $dbname = null)
-    {
-        if ($this->db) {
-            return $this->db;
+    private function getDb(
+        ?string $user = null,
+        ?string $password = null,
+        ?string $host = null,
+        ?string $dbname = null
+    ): ?Connection {
+        if (!$this->db) {
+            $this->db = $this->getApplication()->getConnection($user, $password, $host, $dbname);
         }
-
-        $this->db = $this->getApplication()->getConnection($user, $password, $host, $dbname);
 
         return $this->db;
     }

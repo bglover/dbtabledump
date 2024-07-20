@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump\Tests\Writer;
 
 use Access9\DbTableDump\Writer\XmlWriter;
@@ -37,7 +37,7 @@ class XmlWriterTest extends TestCase
     /**
      * @covers ::format
      */
-    public function testFormatMultipleTables()
+    public function testFormatMultipleTables(): void
     {
         $writer   = new XmlWriter($this->getArray(true));
         $expected = '<?xml version="1.0" encoding="utf-8"?>
@@ -81,10 +81,6 @@ class XmlWriterTest extends TestCase
         $this->assertSame($expected, $writer->format());
     }
 
-    /**
-     * @param bool $multi
-     * @return array
-     */
     private function getArray(bool $multi = false): array
     {
         $return = [

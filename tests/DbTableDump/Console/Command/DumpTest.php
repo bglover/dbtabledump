@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump\Tests\Console\Command;
 
 use Access9\DbTableDump\Console\Command\Dump;
@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
  */
 class DumpTest extends TestCase
 {
-    /**
-     * @var Dump
-     */
-    private $command;
+    private ?Dump $command;
 
     protected function setUp(): void
     {

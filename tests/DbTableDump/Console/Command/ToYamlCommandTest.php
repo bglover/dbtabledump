@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump\Tests\Console\Command;
 
 use Access9\DbTableDump\Config;
@@ -47,14 +47,14 @@ class ToYamlCommandTest extends TestCase
     /**
      * Returns an instance of Application.
      *
-     * @throws \Doctrine\DBAL\Exception
      * @throws \Doctrine\DBAL\Schema\SchemaException
-     * @return Application
+     * @throws \Access9\DbTableDump\FileNotWritableException
+     * @throws \Doctrine\DBAL\Exception
      */
     private function getApplication(): Application
     {
         $application = new Application();
-        $application->setConfig(new Config());
+        $application->setConfig(new Config(dirname(__DIR__, 4) . '/config'));
         $application->setAutoExit(false);
         $this->createTestDb($application);
 
@@ -64,7 +64,6 @@ class ToYamlCommandTest extends TestCase
     /**
      * Create the test database.
      *
-     * @param Application $application
      * @throws \Doctrine\DBAL\Exception
      * @throws \Doctrine\DBAL\Schema\SchemaException
      */

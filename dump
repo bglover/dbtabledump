@@ -1,5 +1,5 @@
 #!/usr/bin/env php
-<?php
+<?php declare(strict_types=1);
 // Installed via composer?
 if (file_exists($a = __DIR__ . '/../../autoload.php')) {
     require_once $a;
@@ -9,4 +9,4 @@ if (file_exists($a = __DIR__ . '/../../autoload.php')) {
 
 use Access9\DbTableDump\Dump;
 
-Dump::run();
+Dump::run(__DIR__ . '/config');

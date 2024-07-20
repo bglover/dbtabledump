@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump\Tests\Writer;
 
 use Access9\DbTableDump\Writer\DelimitedWriter;
@@ -73,9 +73,6 @@ class DelimitedWriterTest extends TestCase
         $this->assertSame($expected, $writer->format());
     }
 
-    /**
-     * @return array
-     */
     private function getArray(): array
     {
         return [

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump\Tests\Console\Command;
 
 use Access9\DbTableDump\Config;
@@ -12,17 +12,17 @@ use Symfony\Component\Console\Tester\CommandTester;
  */
 class ConfigGetCommandTest extends TestCase
 {
-    const COMMAND = 'config:get';
+    private const COMMAND = 'config:get';
+
+    private ?CommandTester $cmdTester;
 
     /**
-     * @var CommandTester
+     * @throws \Access9\DbTableDump\FileNotWritableException
      */
-    private $cmdTester;
-
     protected function setUp(): void
     {
         $application = new Application();
-        $application->setConfig(new Config());
+        $application->setConfig(new Config(dirname(__DIR__, 4) . '/config'));
         $application->setAutoExit(false);
         $application->add(new ConfigGetCommand());
 
@@ -43,12 +43,14 @@ class ConfigGetCommandTest extends TestCase
     {
         $this->cmdTester->execute(['command' => self::COMMAND]);
 
-        $expected = "user: null\n"
-            . "password: null\n"
-            . "memory: true\n"
-            . "dbname: phpunit\n"
-            . "driver: pdo_sqlite\n"
-            . 'host: null';
+        $expected = <<<EXPECTED
+            user: null
+            password: null
+            memory: true
+            dbname: phpunit
+            driver: pdo_sqlite
+            host: null
+            EXPECTED;
         $display  = $this->cmdTester->getDisplay(true);
         $this->assertSame($expected, trim($display));
     }
@@ -71,7 +73,7 @@ class ConfigGetCommandTest extends TestCase
                 $cmd      => null
             ]);
             $display = $this->cmdTester->getDisplay(true);
-            $this->assertSame($exp, trim($display), "I expected: '${exp}'");
+            $this->assertSame($exp, trim($display), "I expected: '{$exp}'");
         }
     }
 }

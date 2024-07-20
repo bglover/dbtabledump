@@ -1,14 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump\Console\Command;
 
 use Access9\DbTableDump\Writer\DelimitedWriter;
+use InvalidArgumentException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ToDelimitedCommand
- *
  * @package Access9\DbTableDump\Console\Command
  */
 class ToDelimitedCommand extends Dump
@@ -16,7 +15,7 @@ class ToDelimitedCommand extends Dump
     /**
      * Configures the current command.
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('to:delimited')
             ->setDescription('Dump one or more database tables to a delimited format.')
@@ -43,29 +42,22 @@ class ToDelimitedCommand extends Dump
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     * @throws \Doctrine\DBAL\Exception
+     * @throws InvalidArgumentException
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $delimiter = $input->getOption('delimiter');
 
         if (empty($delimiter)) {
-            throw new \InvalidArgumentException('--delimiter is required');
+            throw new InvalidArgumentException('--delimiter is required');
         }
 
         $results = $this->toArray($input);
         $writer  = new DelimitedWriter($results, $delimiter, $input->getOption('quote'));
         $output->writeln($writer->format());
-    }
 
-    /**
-     * @param array  $results
-     * @param string $delimiter
-     * @param bool   $quote
-     * @return DelimitedWriter
-     */
-    protected function formatResults(array $results, $delimiter, $quote = false)
-    {
-        return new DelimitedWriter($results, $delimiter, $quote);
+        return 0;
     }
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump\Tests;
 
 use Access9\DbTableDump\Config;
@@ -11,17 +11,14 @@ use PHPUnit\Framework\TestCase;
  */
 class ConfigTest extends TestCase
 {
-    /**
-     * @var Config
-     */
-    private $config;
+    private ?Config $config;
 
     /**
      * @inheritdoc
      */
     protected function setUp(): void
     {
-        $this->config = new Config();
+        $this->config = new Config(dirname(__DIR__, 2) . '/config');
     }
 
     /**

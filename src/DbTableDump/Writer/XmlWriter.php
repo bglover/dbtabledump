@@ -1,21 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump\Writer;
 
 /**
- * Class XmlWriter
- *
  * @package Access9\DbTableDump\Writer
  */
 class XmlWriter implements WriterInterface
 {
-    /**
-     * @var array
-     */
-    protected $data;
+    protected array $data;
 
-    /**
-     * @param array $data
-     */
     public function __construct(array $data)
     {
         $this->data = $data;
@@ -24,10 +16,9 @@ class XmlWriter implements WriterInterface
     /**
      * Format the data.
      *
-     * @return string
      * @throws \DOMException
      */
-    public function format()
+    public function format(): string
     {
         $xml               = new \DOMDocument('1.0', 'utf-8');
         $xml->formatOutput = true;
@@ -36,11 +27,11 @@ class XmlWriter implements WriterInterface
             foreach ($rows as $columns) {
                 $row = $xml->createElement('row');
                 foreach ($columns as $name => $value) {
-                    if (false !== strpos($name, ' ')) {
+                    if (str_contains($name, ' ')) {
                         $name = str_replace(' ', '_', $name);
                     }
 
-                    $column = $xml->createElement($name, $value ?? 'NULL');
+                    $column = $xml->createElement($name, (string) $value);
                     $row->appendChild($column);
                     $column = null;
                 }

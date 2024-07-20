@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump\Tests\Console;
 
 use Access9\DbTableDump\Config;
@@ -11,15 +11,15 @@ use PHPUnit\Framework\TestCase;
  */
 class ApplicationTest extends TestCase
 {
-    /**
-     * @var Application
-     */
-    private $application;
+    private ?Application $application;
 
+    /**
+     * @throws \Access9\DbTableDump\FileNotWritableException
+     */
     protected function setUp(): void
     {
         $this->application = new Application();
-        $this->application->setConfig(new Config());
+        $this->application->setConfig(new Config(dirname(__DIR__, 3) . '/config'));
     }
 
     protected function tearDown(): void
@@ -29,6 +29,7 @@ class ApplicationTest extends TestCase
 
     /**
      * @covers ::getConnection
+     * @throws \Doctrine\DBAL\Exception
      */
     public function testGetConnection(): void
     {

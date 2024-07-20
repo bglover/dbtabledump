@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump\Tests\Console\Command;
 
 use Access9\DbTableDump\Config;
@@ -19,8 +19,6 @@ class ToJsonCommandTest extends TestCase
     /**
      * Basic test of ToJsonCommand::execute
      * @covers ::execute
-     *
-     * @throws \Doctrine\DBAL\Exception
      */
     public function testExecute(): void
     {
@@ -42,13 +40,13 @@ class ToJsonCommandTest extends TestCase
     /**
      * Returns an instance of Application.
      *
+     * @throws \Access9\DbTableDump\FileNotWritableException
      * @throws \Doctrine\DBAL\Exception
-     * @return Application
      */
     private function getApplication(): Application
     {
         $application = new Application();
-        $application->setConfig(new Config());
+        $application->setConfig(new Config(dirname(__DIR__, 4) . '/config'));
         $application->setAutoExit(false);
         $this->createTestDb($application);
 
@@ -58,7 +56,6 @@ class ToJsonCommandTest extends TestCase
     /**
      * Create the test database.
      *
-     * @param Application $application
      * @throws \Doctrine\DBAL\Exception
      */
     private function createTestDb(Application $application): void

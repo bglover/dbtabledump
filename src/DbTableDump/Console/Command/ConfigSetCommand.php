@@ -1,6 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump\Console\Command;
 
+use Access9\DbTableDump\Console\Application;
+use InvalidArgumentException;
 use Symfony\Component\Console\Command\Command as sfCommand;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
@@ -8,16 +10,12 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ConfigCommand
- *
  * @package Access9\DbTableDump\Console\Command
+ * @method Application getApplication
  */
 class ConfigSetCommand extends sfCommand
 {
-    /**
-     * @var array
-     */
-    private static $validDrivers = [
+    private const VALID_DRIVERS = [
         'pdo_mysql',
         'drizzle_pdo_mysql',
         'mysqli',
@@ -33,7 +31,7 @@ class ConfigSetCommand extends sfCommand
     /**
      * Common configuration arguments.
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('config:set')
             ->setDescription('Set a configuration value.')
@@ -68,7 +66,7 @@ class ConfigSetCommand extends sfCommand
                         'd',
                         InputOption::VALUE_REQUIRED,
                         'Driver used to connect to the database. Valid options are '
-                        . PHP_EOL . implode(', ', self::$validDrivers)
+                        . PHP_EOL . implode(', ', self::VALID_DRIVERS)
                     )
                 ])
             );
@@ -77,9 +75,10 @@ class ConfigSetCommand extends sfCommand
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     * @throws \Access9\DbTableDump\FileNotWritableException
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $options = $input->getOptions();
         $this->validateOptions($options);
@@ -89,14 +88,11 @@ class ConfigSetCommand extends sfCommand
     }
 
     /**
-     * @param array $options
      * @throws \Access9\DbTableDump\FileNotWritableException
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function updateConfig(array $options)
+    private function updateConfig(array $options): void
     {
-
-        /** @var \Access9\DbTableDump\Config $config */
         $config = $this->getApplication()->getConfig();
 
         if ($options['user']) {
@@ -116,10 +112,10 @@ class ConfigSetCommand extends sfCommand
         }
 
         if (null !== ($driver = $options['driver'])) {
-            if (!in_array($driver, self::$validDrivers)) {
-                throw new \InvalidArgumentException(
+            if (!in_array($driver, self::VALID_DRIVERS, true)) {
+                throw new InvalidArgumentException(
                     '"' . $driver . '" is not a valid driver. Valid drivers are: '
-                    . PHP_EOL . ' - ' . implode(PHP_EOL . ' - ', self::$validDrivers)
+                    . PHP_EOL . ' - ' . implode(PHP_EOL . ' - ', self::VALID_DRIVERS)
                 );
             }
             $config->driver = $driver;
@@ -131,18 +127,14 @@ class ConfigSetCommand extends sfCommand
     /**
      * Validate that at least one option is given.
      *
-     * @param array $options
-     * @throws \InvalidArgumentException
-     * @return bool
+     * @throws InvalidArgumentException
      */
-    private function validateOptions(array $options)
+    private function validateOptions(array $options): void
     {
-        foreach ($options as $o) {
-            if (!empty($o)) {
-                return;
+        foreach ($options as $key => $val) {
+            if (empty($val)) {
+                throw new InvalidArgumentException("The '$key' option is required.");
             }
         }
-
-        throw new \InvalidArgumentException('An option is required.');
     }
 }

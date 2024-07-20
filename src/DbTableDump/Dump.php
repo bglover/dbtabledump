@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump;
 
 use Access9\DbTableDump\Console\Application;
@@ -10,16 +10,17 @@ use Access9\DbTableDump\Console\Command\ToXmlCommand;
 use Access9\DbTableDump\Console\Command\ToYamlCommand;
 
 /**
- * Class Dump
- *
  * @package Access9\DbTableDump
  */
 class Dump
 {
     /**
      * Main runner to keep dump simple.
+     *
+     * @throws \Access9\DbTableDump\FileNotWritableException
+     * @throws \Exception
      */
-    public static function run(): void
+    public static function run(string $configPath): void
     {
         $app = new Application();
         $app->addCommands([
@@ -31,7 +32,7 @@ class Dump
             new ToXmlCommand()
         ]);
 
-        $app->setConfig(new Config());
+        $app->setConfig(new Config($configPath));
 
         $app->run();
     }

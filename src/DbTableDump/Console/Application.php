@@ -1,35 +1,24 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump\Console;
 
 use Access9\DbTableDump\Config;
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Symfony\Component\Console\Application as sfApplication;
 use Symfony\Component\Console\Input\InputDefinition;
 
 /**
- * Class Application
- *
  * @package Access9\DbTableDump\Console
  */
 class Application extends sfApplication
 {
-    const APP_NAME    = 'Dump';
-    const APP_VERSION = '0.14.2';
+    public const APP_NAME    = 'Dump';
+    public const APP_VERSION = '0.14.2';
 
-    /**
-     * @var \Doctrine\DBAL\Connection
-     */
-    private $db;
+    private ?Connection $db = null;
+    private Config      $config;
 
-    /**
-     * @var Config
-     */
-    private $config;
-
-    /**
-     * @inheritdoc
-     */
-    public function __construct($name = 'UNKNOWN', $version = 'UNKNOWN')
+    public function __construct($name = self::APP_NAME, $version = self::APP_VERSION)
     {
         parent::__construct(self::APP_NAME, self::APP_VERSION);
         $this->overrideDefaultDefinition();
@@ -38,17 +27,16 @@ class Application extends sfApplication
     /**
      * Returns the instance of \Doctrine\DBAL\Connection.
      *
-     * @param string|null $user
-     * @param string|null $password
-     * @param string|null $host
-     * @param string|null $dbname
-     * @throws \Doctrine\DBAL\DBALException
-     * @return \Doctrine\DBAL\Connection
+     * @throws \Doctrine\DBAL\Exception
      */
-    public function getConnection($user = null, $password = null, $host = null, $dbname = null)
-    {
+    public function getConnection(
+        ?string $user = null,
+        ?string $password = null,
+        ?string $host = null,
+        ?string $dbname = null
+    ): Connection {
         // Return the connection if it's already been created AND no custom params are provided.
-        if ((!$user && !$password && !$host && !$dbname) && $this->db) {
+        if ((!$user && !$password && !$host && !$dbname) && null !== $this->db) {
             return $this->db;
         }
 
@@ -61,18 +49,13 @@ class Application extends sfApplication
 
     /**
      * Returns the instance of \Access9\DbTableDump\Config.
-     *
-     * @return Config
      */
-    public function getConfig()
+    public function getConfig(): Config
     {
         return $this->config;
     }
 
-    /**
-     * @param Config $config
-     */
-    public function setConfig(Config $config)
+    public function setConfig(Config $config): void
     {
         $this->config = $config;
     }
@@ -80,7 +63,7 @@ class Application extends sfApplication
     /**
      * Remove a few of the default options that will never be implemented.
      */
-    private function overrideDefaultDefinition()
+    private function overrideDefaultDefinition(): void
     {
         $defaultDefinition = new InputDefinition();
         $removeMe          = ['quiet', 'verbose', 'no-interaction'];

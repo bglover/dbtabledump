@@ -1,62 +1,43 @@
-<?php
+<?php declare(strict_types=1);
 namespace Access9\DbTableDump;
 
 use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class Config
- *
  * @package Access9\DbTableDump\Console
+ * @property null|string $user
+ * @property null|string $password
+ * @property null|string $host
+ * @property null|string $dbname
+ * @property null|bool   $memory    Used for testing.
+ * @property null|string $driver
  */
 class Config
 {
-    /**
-     * @var array
-     */
-    private $config = [];
+    private array $config;
+    private string $configFile;
 
     /**
-     * @var string
+     * @throws \Access9\DbTableDump\FileNotWritableException
      */
-    private $configFile = '';
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
+    public function __construct(string $configPath)
     {
-        $path = $this->getPath();
-
         // Use the appropriate file for testing.
-        $this->configFile = $path . DIRECTORY_SEPARATOR
+        $this->configFile = $configPath . DIRECTORY_SEPARATOR
             . (defined('PHPUNIT') ? 'config_test.yml' : 'config.yml');
 
         if (!file_exists($this->configFile)) {
-            $this->isWritable($path);
+            $this->isWritable($configPath);
             copy($this->configFile . '.dist', $this->configFile);
         }
-        $this->config = Yaml::parse(file_get_contents($this->configFile));
+        $this->config = Yaml::parseFile($this->configFile);
     }
 
     /**
-     * @return string
-     */
-    protected function getPath()
-    {
-        return realpath(
-            __DIR__
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . 'config'
-        );
-    }
-
-    /**
-     * @param string $location
      * @throws FileNotWritableException
      */
-    protected function isWritable($location)
+    protected function isWritable(string $location): void
     {
         if (!is_writable($location)) {
             throw new FileNotWritableException(
@@ -65,29 +46,15 @@ class Config
         }
     }
 
-    /**
-     * Public getter.
-     *
-     * @param string $key
-     * @return string|null
-     */
-    public function __get($key)
+    public function __get(string $key): mixed
     {
-        if (isset($this->config[$key])) {
-            return $this->config[$key];
-        }
-
-        return null;
+        return $this->config[$key] ?? null;
     }
 
     /**
-     * Public setter.
-     *
-     * @param string $key
-     * @param mixed  $value
      * @throws InvalidArgumentException
      */
-    public function __set($key, $value)
+    public function __set(string $key, mixed $value): void
     {
         if (!array_key_exists($key, $this->config)) {
             throw new InvalidArgumentException('Attempting to set a non-existent configuration key');
@@ -96,28 +63,20 @@ class Config
         $this->config[$key] = $value;
     }
 
-    /**
-     * Public isset.
-     *
-     * @param string $key
-     * @return bool
-     */
-    public function __isset($key)
+    public function __isset(string $key): bool
     {
         return isset($this->config[$key]);
     }
 
     /**
      * Return the array configuration.
-     *
-     * @param string|null $user
-     * @param string|null $password
-     * @param string|null $host
-     * @param string|null $dbname
-     * @return array
      */
-    public function toArray($user = null, $password = null, $host = null, $dbname = null)
-    {
+    public function toArray(
+        ?string $user = null,
+        ?string $password = null,
+        ?string $host = null,
+        ?string $dbname = null
+    ): array {
         if ($user) {
             $this->config['user'] = $user;
         }
@@ -142,16 +101,13 @@ class Config
      *
      * @throws FileNotWritableException
      */
-    public function save()
+    public function save(): void
     {
         $this->isWritable($this->configFile);
         file_put_contents($this->configFile, Yaml::dump($this->config));
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return Yaml::dump($this->config);
     }

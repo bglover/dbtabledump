@@ -1,9 +1,13 @@
 <?php
 namespace Access9\DbTableDump;
 
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Access9\DbTableDump\Console\Application;
+use Access9\DbTableDump\Console\Command\ConfigGetCommand;
+use Access9\DbTableDump\Console\Command\ConfigSetCommand;
+use Access9\DbTableDump\Console\Command\ToDelimitedCommand;
+use Access9\DbTableDump\Console\Command\ToJsonCommand;
+use Access9\DbTableDump\Console\Command\ToXmlCommand;
+use Access9\DbTableDump\Console\Command\ToYamlCommand;
 
 /**
  * Class Dump
@@ -15,19 +19,20 @@ class Dump
     /**
      * Main runner to keep dump simple.
      */
-    public static function run()
+    public static function run(): void
     {
-        $path = realpath(
-            __DIR__
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . 'config'
-        );
+        $app = new Application();
+        $app->addCommands([
+            new ConfigGetCommand(),
+            new ConfigSetCommand(),
+            new ToJsonCommand(),
+            new ToYamlCommand(),
+            new ToDelimitedCommand(),
+            new ToXmlCommand()
+        ]);
 
-        $container = new ContainerBuilder();
-        $container->setParameter('config.path', $path);
-        $loader = new YamlFileLoader($container, new FileLocator($path));
-        $loader->load('services.yml');
-        $container->get('application')->run();
+        $app->setConfig(new Config());
+
+        $app->run();
     }
 }

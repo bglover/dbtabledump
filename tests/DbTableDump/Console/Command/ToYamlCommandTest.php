@@ -40,7 +40,6 @@ class ToYamlCommandTest extends TestCase
                 id: 2
                 name: cheeks
             YAML;
-
         $display  = $commandTester->getDisplay(true);
         $this->assertSame($expected, trim($display));
     }
@@ -49,6 +48,7 @@ class ToYamlCommandTest extends TestCase
      * Returns an instance of Application.
      *
      * @throws \Doctrine\DBAL\Exception
+     * @throws \Doctrine\DBAL\Schema\SchemaException
      * @return Application
      */
     private function getApplication(): Application
@@ -66,6 +66,7 @@ class ToYamlCommandTest extends TestCase
      *
      * @param Application $application
      * @throws \Doctrine\DBAL\Exception
+     * @throws \Doctrine\DBAL\Schema\SchemaException
      */
     private function createTestDb(Application $application): void
     {

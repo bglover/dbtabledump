@@ -2,16 +2,14 @@
 namespace Access9\DbTableDump\Tests\Writer;
 
 use Access9\DbTableDump\Writer\XmlWriter;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Access9\DbTableDump\Writer\XmlWriter
- */
+#[CoversClass(XmlWriter::class)]
+#[CoversMethod(XmlWriter::class, 'format')]
 class XmlWriterTest extends TestCase
 {
-    /**
-     * @covers ::format
-     */
     public function testFormat(): void
     {
         $writer   = new XmlWriter($this->getArray());
@@ -34,9 +32,6 @@ class XmlWriterTest extends TestCase
         $this->assertSame($expected, $writer->format());
     }
 
-    /**
-     * @covers ::format
-     */
     public function testFormatMultipleTables(): void
     {
         $writer   = new XmlWriter($this->getArray(true));

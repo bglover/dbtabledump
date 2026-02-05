@@ -8,17 +8,17 @@ use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Types\Types;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
-/**
- * @coversDefaultClass \Access9\DbTableDump\Console\Command\ToJsonCommand
- */
+#[CoversClass(ToJsonCommand::class)]
+#[CoversMethod(ToJsonCommand::class, 'execute')]
 class ToJsonCommandTest extends TestCase
 {
     /**
      * Basic test of ToJsonCommand::execute
-     * @covers ::execute
      */
     public function testExecute(): void
     {

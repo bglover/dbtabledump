@@ -2,16 +2,14 @@
 namespace Access9\DbTableDump\Tests\Writer;
 
 use Access9\DbTableDump\Writer\DelimitedWriter;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Access9\DbTableDump\Writer\DelimitedWriter
- */
+#[CoversClass(DelimitedWriter::class)]
+#[CoversMethod(DelimitedWriter::class, 'format')]
 class DelimitedWriterTest extends TestCase
 {
-    /**
-     * @covers ::format
-     */
     public function testFormat(): void
     {
         $writer   = new DelimitedWriter($this->getArray(), '|');
@@ -25,9 +23,6 @@ class DelimitedWriterTest extends TestCase
         $this->assertSame($expected, $writer->format());
     }
 
-    /**
-     * @covers ::format
-     */
     public function testFormatQuoted(): void
     {
         $writer   = new DelimitedWriter($this->getArray(), '|', true);
@@ -41,9 +36,6 @@ class DelimitedWriterTest extends TestCase
         $this->assertSame($expected, $writer->format());
     }
 
-    /**
-     * @covers ::format
-     */
     public function testFormatWithLiteralTab(): void
     {
         $writer   = new DelimitedWriter($this->getArray(), '\t');
@@ -57,9 +49,6 @@ class DelimitedWriterTest extends TestCase
         $this->assertSame($expected, $writer->format());
     }
 
-    /**
-     * @covers ::format
-     */
     public function testFormatWithLiteralTabQuoted(): void
     {
         $writer   = new DelimitedWriter($this->getArray(), '\t', true);

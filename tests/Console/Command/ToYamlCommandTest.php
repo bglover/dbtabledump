@@ -8,17 +8,15 @@ use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Types\Types;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
-/**
- * @coversDefaultClass \Access9\DbTableDump\Console\Command\ToYamlCommand
- */
+#[CoversClass(ToYamlCommand::class)]
+#[CoversMethod(ToYamlCommand::class, 'execute')]
 class ToYamlCommandTest extends TestCase
 {
-    /**
-     * @covers ::execute
-     */
     public function testExecute(): void
     {
         $application = $this->getApplication();

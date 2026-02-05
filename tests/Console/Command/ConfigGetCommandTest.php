@@ -4,12 +4,13 @@ namespace Access9\DbTableDump\Tests\Console\Command;
 use Access9\DbTableDump\Config;
 use Access9\DbTableDump\Console\Application;
 use Access9\DbTableDump\Console\Command\ConfigGetCommand;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
-/**
- * @coversDefaultClass \Access9\DbTableDump\Console\Command\ConfigGetCommand
- */
+#[CoversClass(ConfigGetCommand::class)]
+#[CoversMethod(ConfigGetCommand::class, 'execute')]
 class ConfigGetCommandTest extends TestCase
 {
     private const string COMMAND = 'config:get';
@@ -35,9 +36,6 @@ class ConfigGetCommandTest extends TestCase
         $this->cmdTester = null;
     }
 
-    /**
-     * @covers ::execute
-     */
     public function testExecute(): void
     {
         $this->cmdTester->execute(['command' => self::COMMAND]);
@@ -54,9 +52,6 @@ class ConfigGetCommandTest extends TestCase
         $this->assertSame($expected, trim($display));
     }
 
-    /**
-     * @covers ::execute
-     */
     public function testExecuteWithParams(): void
     {
         $expected = [

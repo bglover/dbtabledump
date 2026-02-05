@@ -3,12 +3,20 @@ namespace Access9\DbTableDump\Tests;
 
 use Access9\DbTableDump\Config;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @package Access9\DbTableDump\Tests\Console
- * @coversDefaultClass \Access9\DbTableDump\Config
  */
+#[CoversClass(Config::class)]
+#[CoversMethod(Config::class, '__construct')]
+#[CoversMethod(Config::class, 'toArray')]
+#[CoversMethod(Config::class, '__set')]
+#[CoversMethod(Config::class, '__get')]
+#[CoversMethod(Config::class, '__isset')]
+#[CoversMethod(Config::class, 'save')]
 class ConfigTest extends TestCase
 {
     private ?Config $config;
@@ -29,17 +37,11 @@ class ConfigTest extends TestCase
         $this->config = null;
     }
 
-    /**
-     * @covers ::__construct
-     */
     public function testConstruct(): void
     {
         $this->assertInstanceOf(Config::class, $this->config);
     }
 
-    /**
-     * @covers ::toArray
-     */
     public function testGetConfig(): void
     {
         $expected = [
@@ -53,9 +55,6 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, $this->config->toArray());
     }
 
-    /**
-     * @covers ::toArray
-     */
     public function testGetConfigWithParams(): void
     {
         $expected = [
@@ -72,9 +71,6 @@ class ConfigTest extends TestCase
         );
     }
 
-    /**
-     * @covers ::__set
-     */
     public function test__set(): void
     {
         $expected           = 'Boogers';
@@ -92,9 +88,6 @@ class ConfigTest extends TestCase
         $this->config->randomunknownprop = 'this is totally going to throw an exception';
     }
 
-    /**
-     * @covers ::__get
-     */
     public function test__get(): void
     {
         $this->assertNull($this->config->user);
@@ -104,9 +97,6 @@ class ConfigTest extends TestCase
         $this->assertSame($this->config->driver, 'pdo_sqlite');
     }
 
-    /**
-     * @covers ::__isset
-     */
     public function test__isset(): void
     {
         // These two are false because the config for phpunit doesn't define these.
@@ -118,9 +108,6 @@ class ConfigTest extends TestCase
         $this->assertTrue(isset($this->config->driver));
     }
 
-    /**
-     * @covers ::save
-     */
     public function testSave(): void
     {
         $ref  = new \ReflectionClass($this->config);

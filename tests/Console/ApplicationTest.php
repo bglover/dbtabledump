@@ -4,11 +4,13 @@ namespace Access9\DbTableDump\Tests\Console;
 use Access9\DbTableDump\Config;
 use Access9\DbTableDump\Console\Application;
 use Doctrine\DBAL\Connection;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Access9\DbTableDump\Console\Application
- */
+#[CoversClass(Application::class)]
+#[CoversMethod(Application::class, 'getConnection')]
+#[CoversMethod(Application::class, 'getConfig')]
 class ApplicationTest extends TestCase
 {
     private ?Application $application;
@@ -27,7 +29,6 @@ class ApplicationTest extends TestCase
     }
 
     /**
-     * @covers ::getConnection
      * @throws \Doctrine\DBAL\Exception
      */
     public function testGetConnection(): void
@@ -39,18 +40,12 @@ class ApplicationTest extends TestCase
         $this->assertSame($this->application->getConnection(), $connection);
     }
 
-    /**
-     * @covers ::getConfig
-     */
     public function testGetConfig(): void
     {
         $config = $this->application->getConfig();
         $this->assertInstanceOf(Config::class, $config);
     }
 
-    /**
-     * @covers ::getDefinition
-     */
     public function testOverrideDefaultDefinition(): void
     {
         $meth = new \ReflectionMethod($this->application, 'overrideDefaultDefinition');

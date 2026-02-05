@@ -9,9 +9,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @package Access9\DbTableDump\Console\Command
  */
-class ToJsonCommand extends Dump
+final class ToJsonCommand extends Dump
 {
-    private const VALID_BITMASKS = [
+    private const array VALID_BITMASKS = [
         JSON_HEX_QUOT,
         JSON_HEX_TAG,
         JSON_HEX_AMP,
@@ -23,9 +23,7 @@ class ToJsonCommand extends Dump
         JSON_UNESCAPED_UNICODE
     ];
 
-    /**
-     * Configures the current command.
-     */
+    #[\Override]
     protected function configure(): void
     {
         $this->setName('to:json')
@@ -49,11 +47,11 @@ class ToJsonCommand extends Dump
     }
 
     /**
-     * {@inheritdoc}
      * @throws \Doctrine\DBAL\Exception
      * @throws \JsonException
      * @throws InvalidArgumentException
      */
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $bitmask = 0;
@@ -68,8 +66,14 @@ class ToJsonCommand extends Dump
                 $bitmask |= constant($o);
             }
         }
-        $results = $this->toArray($input);
-        $output->writeln(json_encode($results, JSON_THROW_ON_ERROR | $bitmask, 9999));
+        $results    = $this->toArray($input);
+        $jsonString = json_encode($results, JSON_THROW_ON_ERROR | $bitmask, 9999);
+
+        if ($jsonString === false) {
+            return 1;
+        }
+
+        $output->writeln($jsonString);
 
         return 0;
     }

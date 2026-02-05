@@ -10,11 +10,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @package Access9\DbTableDump\Console\Command
  */
-class ToDelimitedCommand extends Dump
+final class ToDelimitedCommand extends Dump
 {
-    /**
-     * Configures the current command.
-     */
+    #[\Override]
     protected function configure(): void
     {
         $this->setName('to:delimited')
@@ -42,10 +40,10 @@ class ToDelimitedCommand extends Dump
     }
 
     /**
-     * {@inheritdoc}
      * @throws \Doctrine\DBAL\Exception
      * @throws InvalidArgumentException
      */
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $delimiter = $input->getOption('delimiter');

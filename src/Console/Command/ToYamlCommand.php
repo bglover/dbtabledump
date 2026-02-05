@@ -8,11 +8,9 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * @package Access9\DbTableDump\Console\Command
  */
-class ToYamlCommand extends Dump
+final class ToYamlCommand extends Dump
 {
-    /**
-     * Configures the current command.
-     */
+    #[\Override]
     protected function configure(): void
     {
         $this->setName('to:yaml')
@@ -21,9 +19,9 @@ class ToYamlCommand extends Dump
     }
 
     /**
-     * {@inheritdoc}
      * @throws \Doctrine\DBAL\Exception
      */
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $results = $this->toArray($input);

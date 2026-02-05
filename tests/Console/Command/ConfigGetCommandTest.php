@@ -12,7 +12,7 @@ use Symfony\Component\Console\Tester\CommandTester;
  */
 class ConfigGetCommandTest extends TestCase
 {
-    private const COMMAND = 'config:get';
+    private const string COMMAND = 'config:get';
 
     private ?CommandTester $cmdTester;
 
@@ -21,8 +21,7 @@ class ConfigGetCommandTest extends TestCase
      */
     protected function setUp(): void
     {
-        $application = new Application();
-        $application->setConfig(new Config(dirname(__DIR__, 3) . '/config'));
+        $application = new Application(new Config(dirname(__DIR__, 3) . '/config'));
         $application->setAutoExit(false);
         $application->add(new ConfigGetCommand());
 

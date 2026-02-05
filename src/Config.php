@@ -13,7 +13,7 @@ use Symfony\Component\Yaml\Yaml;
  * @property null|bool   $memory    Used for testing.
  * @property null|string $driver
  */
-class Config
+final class Config
 {
     private array $config;
     private string $configFile;
@@ -77,19 +77,19 @@ class Config
         ?string $host = null,
         ?string $dbname = null
     ): array {
-        if ($user) {
+        if ($user !== '' && $user !== null) {
             $this->config['user'] = $user;
         }
 
-        if ($password) {
+        if ($password !== '' && $password !== null) {
             $this->config['password'] = $password;
         }
 
-        if ($host) {
+        if ($host !== '' && $host !== null) {
             $this->config['host'] = $host;
         }
 
-        if ($dbname) {
+        if ($dbname !== '' && $dbname !== null) {
             $this->config['dbname'] = $dbname;
         }
 

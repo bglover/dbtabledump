@@ -32,7 +32,8 @@
         "ext-pdo_sqlite": "*",
         "phpunit/phpunit": "^12.5",
         "mikey179/vfsstream": "^1.6",
-        "friendsofphp/php-cs-fixer": "^3.0"
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "vimeo/psalm": "^6.15"
     },
     "extra": {
         "branch-alias": {

@@ -4,6 +4,6 @@ namespace Access9\DbTableDump;
 /**
  * @package Access9\DbTableDump
  */
-class FileNotWritableException extends \Exception
+final class FileNotWritableException extends \Exception
 {
 }

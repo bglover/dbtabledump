@@ -8,11 +8,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @package Access9\DbTableDump\Console\Command
  */
-class ToXmlCommand extends Dump
+final class ToXmlCommand extends Dump
 {
-    /**
-     * Configures the current command.
-     */
+    #[\Override]
     protected function configure(): void
     {
         $this->setName('to:xml')
@@ -24,10 +22,10 @@ class ToXmlCommand extends Dump
     }
 
     /**
-     * {@inheritdoc}
      * @throws \Doctrine\DBAL\Exception
      * @throws \DOMException
      */
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $results = $this->toArray($input);

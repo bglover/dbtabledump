@@ -4,21 +4,21 @@ namespace Access9\DbTableDump\Writer;
 /**
  * @package Access9\DbTableDump\Writer
  */
-class DelimitedWriter implements WriterInterface
+final class DelimitedWriter implements WriterInterface
 {
-    private const QUOTE = '"';
+    private const string QUOTE = '"';
 
-    private array $data;
-    private string $delimiter;
-    private bool $quote;
+    private readonly string $delimiter;
 
-    public function __construct(array $data, string $delimiter, bool $quote = false)
-    {
-        $this->data      = $data;
+    public function __construct(
+        private readonly array $data,
+        string $delimiter,
+        private readonly bool $quote = false
+    ) {
         $this->delimiter = $this->convertLiteralTab($delimiter);
-        $this->quote     = $quote;
     }
 
+    #[\Override]
     public function format(): array
     {
         $data = [];

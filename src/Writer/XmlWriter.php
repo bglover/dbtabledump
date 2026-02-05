@@ -4,13 +4,10 @@ namespace Access9\DbTableDump\Writer;
 /**
  * @package Access9\DbTableDump\Writer
  */
-class XmlWriter implements WriterInterface
+final class XmlWriter implements WriterInterface
 {
-    protected array $data;
-
-    public function __construct(array $data)
+    public function __construct(private readonly array $data)
     {
-        $this->data = $data;
     }
 
     /**
@@ -18,6 +15,7 @@ class XmlWriter implements WriterInterface
      *
      * @throws \DOMException
      */
+    #[\Override]
     public function format(): string
     {
         $xml               = new \DOMDocument('1.0', 'utf-8');

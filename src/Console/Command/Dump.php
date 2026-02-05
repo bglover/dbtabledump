@@ -1,25 +1,23 @@
 <?php declare(strict_types=1);
 namespace Access9\DbTableDump\Console\Command;
 
-use Access9\DbTableDump\Console\Application;
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Console\Command\Command as sfCommand;
+use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @package Access9\DbTableDump\Console
- * @method Application getApplication
  */
 class Dump extends sfCommand
 {
     protected ?Connection $db = null;
 
-    /**
-     * Common configuration arguments.
-     */
+    #[\Override]
     protected function configure(): void
     {
         $this->setDefinition(
@@ -118,9 +116,19 @@ class Dump extends sfCommand
         ?string $host = null,
         ?string $dbname = null
     ): ?Connection {
-        if (!$this->db) {
-            $this->db = $this->getApplication()->getConnection($user, $password, $host, $dbname);
+        if ($this->db) {
+            return $this->db;
         }
+
+        /** @var \Access9\DbTableDump\Console\Application $app */
+        $app = $this->getApplication();
+        if (!isset($app->getConfig()->driver)) {
+            throw new RuntimeException(
+                'Database driver is not configured. Use "dump config:set -d <driver>" to add one.'
+            );
+        }
+
+        $this->db = $app->getConnection($user, $password, $host, $dbname);
 
         return $this->db;
     }

@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 namespace Access9\DbTableDump\Console\Command;
 
-use Access9\DbTableDump\Console\Application;
 use Symfony\Component\Console\Command\Command as sfCommand;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
@@ -10,13 +9,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @package Access9\DbTableDump\Console\Command
- * @method Application getApplication
  */
-class ConfigGetCommand extends sfCommand
+final class ConfigGetCommand extends sfCommand
 {
-    /**
-     * Common configuration arguments.
-     */
+    #[\Override]
     protected function configure(): void
     {
         $this->setName('config:get')
@@ -34,14 +30,15 @@ class ConfigGetCommand extends sfCommand
             );
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $out = [];
 
-        $config = $this->getApplication()->getConfig();
+        /** @var \Access9\DbTableDump\Console\Application $app */
+        $app    = $this->getApplication();
+        $config = $app->getConfig();
+
         if ($input->getOption('user')) {
             $out[] = 'user: ' . $config->user;
         }

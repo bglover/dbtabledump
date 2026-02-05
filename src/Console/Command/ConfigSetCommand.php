@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 namespace Access9\DbTableDump\Console\Command;
 
-use Access9\DbTableDump\Console\Application;
 use InvalidArgumentException;
 use Symfony\Component\Console\Command\Command as sfCommand;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -11,11 +10,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @package Access9\DbTableDump\Console\Command
- * @method Application getApplication
  */
-class ConfigSetCommand extends sfCommand
+final class ConfigSetCommand extends sfCommand
 {
-    private const VALID_DRIVERS = [
+    private const array VALID_DRIVERS = [
         'pdo_mysql',
         'drizzle_pdo_mysql',
         'mysqli',
@@ -28,7 +26,7 @@ class ConfigSetCommand extends sfCommand
         'sqlanywhere',
     ];
 
-    private const REQUIRED_OPTIONS = [
+    private const array REQUIRED_OPTIONS = [
         'user',
         'password',
         'host',
@@ -36,9 +34,7 @@ class ConfigSetCommand extends sfCommand
         'driver',
     ];
 
-    /**
-     * Common configuration arguments.
-     */
+    #[\Override]
     protected function configure(): void
     {
         $this->setName('config:set')
@@ -83,9 +79,9 @@ class ConfigSetCommand extends sfCommand
     }
 
     /**
-     * {@inheritdoc}
      * @throws \Access9\DbTableDump\FileNotWritableException
      */
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $options = $input->getOptions();
@@ -101,7 +97,9 @@ class ConfigSetCommand extends sfCommand
      */
     private function updateConfig(array $options): void
     {
-        $config = $this->getApplication()->getConfig();
+        /** @var \Access9\DbTableDump\Console\Application $app */
+        $app    = $this->getApplication();
+        $config = $app->getConfig();
 
         if ($options['user']) {
             $config->user = $options['user'];

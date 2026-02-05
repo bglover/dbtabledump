@@ -53,8 +53,7 @@ class ToYamlCommandTest extends TestCase
      */
     private function getApplication(): Application
     {
-        $application = new Application();
-        $application->setConfig(new Config(dirname(__DIR__, 3) . '/config'));
+        $application = new Application(new Config(dirname(__DIR__, 3) . '/config'));
         $application->setAutoExit(false);
         $this->createTestDb($application);
 

@@ -12,7 +12,7 @@ use Access9\DbTableDump\Console\Command\ToYamlCommand;
 /**
  * @package Access9\DbTableDump
  */
-class Dump
+final class Dump
 {
     /**
      * Main runner to keep dump simple.
@@ -22,7 +22,7 @@ class Dump
      */
     public static function run(string $configPath): void
     {
-        $app = new Application();
+        $app = new Application(new Config($configPath));
         $app->addCommands([
             new ConfigGetCommand(),
             new ConfigSetCommand(),
@@ -31,8 +31,6 @@ class Dump
             new ToDelimitedCommand(),
             new ToXmlCommand()
         ]);
-
-        $app->setConfig(new Config($configPath));
 
         $app->run();
     }

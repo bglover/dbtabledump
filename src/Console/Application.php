@@ -13,7 +13,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 final class Application extends sfApplication
 {
     public const string APP_NAME    = 'Dump';
-    public const string APP_VERSION = '0.14.2';
+    public const string APP_VERSION = '0.16.0';
 
     private ?Connection $db = null;
 
